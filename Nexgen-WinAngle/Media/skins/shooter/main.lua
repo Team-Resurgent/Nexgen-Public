@@ -131,7 +131,7 @@ Score = 0
 -- Table For Boss
 --************************************************************************************************ 
 
-boss = {x = 200, y = 0, speed = 100, img = nil, hp = 0, moving = false, direction = 'nil'}
+boss = {x = 200, y = bossHeight, speed = 100, img = nil, hp = 0, moving = false, direction = 'nil'}
 
 -------------------------------------------------------------------------------------------------- 
  
@@ -291,7 +291,8 @@ elseif (controller.isButtonHeld(0, controller.Button['DpadDown'])) then
 --************************************************************************************************  
   if (controller.isButtonHeld(0, controller.Button['A'])) and CanShoot and IsAlive then
     --local newBullet = {x = Player.x + (PlayerImg:renderGetWidth()/2), y = Player.y, img = BulletImg}
-	local newBullet = {x = Player.x, y = Player.y, img = nil}
+	local newBullet = {x = Player.x + ((playerWidth / 2) - (bulletWidth / 2)) , y = Player.y, img = bulletImg}
+	
     table.insert(Bullets, newBullet)
 	
 
@@ -307,7 +308,8 @@ elseif (controller.isButtonHeld(0, controller.Button['DpadDown'])) then
 -- Boss is Shooting
 --************************************************************************************************  
   if boss.hp > 0 and CanShootBoss then
-  	newBulletBoss = { x = boss.x + (aspectRatio), y = boss.y + bossHeight, img = bulletImg}
+  	newBulletBoss = { x = boss.x + ((bossWidth / 2) - (bulletWidth / 2)), y = boss.y + bossHeight - 10 , img = bulletImg}
+	
   	table.insert(bulletsBoss, newBulletBoss)
 	--print("Boss is Shooting")
   	CanShootBoss = false
@@ -367,7 +369,7 @@ elseif (controller.isButtonHeld(0, controller.Button['DpadDown'])) then
 --************************************************************************************************ 
 -- Initiate Boss Fight
 --************************************************************************************************  
-  if Score == 10 and boss.hp == 0 then
+  if Score == 2 and boss.hp == 0 then
     boss.hp = 10
   end
 
@@ -562,7 +564,7 @@ graphics.setColorTint(TextColour1Default)
 --************************************************************************************************
 
   if boss.hp > 0 then
-  graphics.drawNinePatch(BossImg, vector3.new(boss.x, bossHeight, 0.0), bossWidth, bossHeight, 0.0, 0.0)
+  graphics.drawNinePatch(BossImg, vector3.new(boss.x, boss.y, 0.0), bossWidth, bossHeight, 0.0, 0.0)
   end
   
 -------------------------------------------------------------------------------------------------- 
@@ -610,7 +612,7 @@ graphics.setColorTint(TextColour1Default)
 --************************************************************************************************   
   
   for i,bullet in ipairs(Bullets) do
-  graphics.drawNinePatch(BulletImg, vector3.new(bullet.x, bullet.y, 0.0), 1, 1, 0.25, 0.25)
+  graphics.drawNinePatch(BulletImg, vector3.new(bullet.x, bullet.y, 0.0), bulletWidth, bulletHeight, 0.25, 0.25)
   end
 
 -------------------------------------------------------------------------------------------------- 
