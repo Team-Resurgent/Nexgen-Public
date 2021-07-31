@@ -1,2 +1,3 @@
 INFO: Socket server init on port 80
 INFO: done
+INFO: Colided with Enemy
