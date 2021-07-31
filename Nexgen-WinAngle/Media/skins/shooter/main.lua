@@ -544,7 +544,7 @@ graphics.setColorTint(TextColour1Default)
 
   if IsAlive then
       --love.graphics.draw(Player.img, Player.x, Player.y)
-  graphics.drawNinePatch(PlayerImg, vector3.new(Player.x, Player.y, 0.0), 1, 1, 0.25, 0.25)
+  graphics.drawNinePatch(PlayerImg, vector3.new(Player.x, Player.y, 0.0), playerWidth, playerHeight, 0.0, 0.0)
 
   else
   --love.graphics.print('Press R to Restart', love.graphics:getWidth()/2-50, love.graphics:getHeight()/2-10)
@@ -562,7 +562,7 @@ graphics.setColorTint(TextColour1Default)
 --************************************************************************************************
 
   if boss.hp > 0 then
-  graphics.drawNinePatch(BossImg, vector3.new(boss.x, bossHeight, 0.0), 1, 1, 0.25, 0.25)
+  graphics.drawNinePatch(BossImg, vector3.new(boss.x, bossHeight, 0.0), bossWidth, bossHeight, 0.0, 0.0)
   end
   
 -------------------------------------------------------------------------------------------------- 
@@ -572,7 +572,7 @@ graphics.setColorTint(TextColour1Default)
 --************************************************************************************************ 
   
   for i, bulletBoss in ipairs(bulletsBoss) do
-	graphics.drawNinePatch(BulletImg, vector3.new(bulletBoss.x, bulletBoss.y, 0.0), 1, 1, 0.25, 0.25)
+	graphics.drawNinePatch(BulletImg, vector3.new(bulletBoss.x, bulletBoss.y, 0.0), bulletWidth, bulletHeight, 0.0, 0.0)
 	
 	end
 
@@ -620,7 +620,7 @@ graphics.setColorTint(TextColour1Default)
 --************************************************************************************************ 
 
   for i,enemy in ipairs(Enemies) do
-    graphics.drawNinePatch(EnemyImg, vector3.new(enemy.x, enemy.y, 0.0), 1, 1, 0.25, 0.25)
+    graphics.drawNinePatch(EnemyImg, vector3.new(enemy.x, enemy.y, 0.0), enemyWidth, enemyHeight, 0.0, 0.0)
   end
 
 -------------------------------------------------------------------------------------------------- 
