@@ -62,7 +62,8 @@ end
 --************************************************************************************************
 
 local PlayerImg = graphics.loadTexture("assets:images\\game\\plane.png")
-local BulletImg = graphics.loadTexture("assets:images\\game\\bullet.png")
+local BulletImg = graphics.loadTexture("assets:images\\game\\playerbullet.png")
+local EnemyBulletImg = graphics.loadTexture("assets:images\\game\\enemybullet.png")
 local EnemyImg = graphics.loadTexture("assets:images\\game\\enemy.png")
 local BossImg = graphics.loadTexture("assets:images\\game\\boss.png")
 
@@ -574,7 +575,7 @@ graphics.setColorTint(TextColour1Default)
 --************************************************************************************************ 
   
   for i, bulletBoss in ipairs(bulletsBoss) do
-	graphics.drawNinePatch(BulletImg, vector3.new(bulletBoss.x, bulletBoss.y, 0.0), bulletWidth, bulletHeight, 0.0, 0.0)
+	graphics.drawNinePatch(EnemyBulletImg, vector3.new(bulletBoss.x, bulletBoss.y, 0.0), bulletWidth, bulletHeight, 0.0, 0.0)
 	
 	end
 
