@@ -1,0 +1,3 @@
+INFO: Socket server init on port 80
+INFO: Music repeat on
+INFO: done
