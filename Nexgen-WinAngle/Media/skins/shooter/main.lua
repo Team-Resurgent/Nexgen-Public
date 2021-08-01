@@ -453,7 +453,7 @@ graphics.clear(true, 1.0, true, 0, true, backgroundColor)
 -- Collision Check For Player With Enemies
 --************************************************************************************************  
 
-		if CheckCollision(enemy.x, enemy.y, enemyWidth, enemyHeight, Player.x, Player.y, bulletWidth, bulletHeight) and IsAlive then
+		if CheckCollision(enemy.x, enemy.y, enemyWidth, enemyHeight, Player.x, Player.y, playerWidth, playerHeight) and IsAlive then
 			table.remove(Enemies, i)
 			
 			print("Colided with Enemy")
@@ -491,7 +491,7 @@ end
 --************************************************************************************************  
 
   for j, bulletBoss in ipairs(bulletsBoss) do
-    if CheckCollision(Player.x, Player.y, playerWidth, playerHeight, bulletBoss.x, bulletBoss.y, bossWidth, bossHeight) then
+    if CheckCollision(Player.x, Player.y, playerWidth, playerHeight, bulletBoss.x, bulletBoss.y, bulletWidth, bulletHeight) then
       table.remove(bulletsBoss, j)
       boss.hp = 0
       IsAlive = false
