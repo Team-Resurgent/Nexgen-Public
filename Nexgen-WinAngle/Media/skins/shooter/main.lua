@@ -247,8 +247,8 @@ graphics.clear(true, 1.0, true, 0, true, backgroundColor)
 	 if Player.x < (renderGetWidth()) then
       Player.x = Player.x + (Player.speed*dt)
     end
-
-elseif (controller.isButtonHeld(0, controller.Button['DpadDown'])) then
+  end
+  if (controller.isButtonHeld(0, controller.Button['DpadDown'])) then
     if Player.y > (renderGetHeight()/2) then
       Player.y = Player.y - (Player.speed*dt)
     end
