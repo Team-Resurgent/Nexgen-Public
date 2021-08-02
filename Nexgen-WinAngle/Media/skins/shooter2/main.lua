@@ -32,8 +32,7 @@ CanShootTimer = CanShootTimerMax
 function PressStartToAttackText()
   if PressStartToAttackVariables == nil then
     PressStartToAttackVariables = 1
-	PressStartToAttackWidth = 854
-	PressStartToAttackHigh, PressStartToAttackLow, PressStartToAttackSpeed = 10, -10, (math.random(1, 20) / 10.0)
+	PressStartToAttackHigh, PressStartToAttackLow, PressStartToAttackSpeed, PressStartToAttackWidth = 10, -10, 25, 854
 	PressStartToAttackPositionX, PressStartToAttackPositionY = (renderGetWidth() / 2) - (PressStartToAttackWidth / 2), renderGetHeight() / 2
     PressStartLetter1a, PressStartLetter1b = PressStartToAttackHigh, math.random(PressStartToAttackLow, PressStartToAttackHigh)
     PressStartLetter2a, PressStartLetter2b = PressStartToAttackHigh, math.random(PressStartToAttackLow, PressStartToAttackHigh)
@@ -57,215 +56,232 @@ function PressStartToAttackText()
   end
 
   if PressStartLetter1a == PressStartToAttackHigh and PressStartLetter1b < PressStartToAttackHigh then
-    PressStartLetter1b = PressStartLetter1b + PressStartToAttackSpeed
+    PressStartLetter1b = PressStartLetter1b + (math.random(1, PressStartToAttackSpeed) / 10.0)
   elseif PressStartLetter1a == PressStartToAttackHigh then
     PressStartLetter1a = PressStartToAttackLow
   elseif PressStartLetter1a == PressStartToAttackLow and PressStartLetter1b > PressStartToAttackLow then
-    PressStartLetter1b = PressStartLetter1b - PressStartToAttackSpeed
+    PressStartLetter1b = PressStartLetter1b - (math.random(1, PressStartToAttackSpeed) / 10.0)
   elseif PressStartLetter1a == PressStartToAttackLow then
     PressStartLetter1a = PressStartToAttackHigh	
   end
 	  
   if PressStartLetter2a == PressStartToAttackHigh and PressStartLetter2b < PressStartToAttackHigh then
-    PressStartLetter2b = PressStartLetter2b + PressStartToAttackSpeed
+    PressStartLetter2b = PressStartLetter2b + (math.random(1, PressStartToAttackSpeed) / 10.0)
   elseif PressStartLetter2a == PressStartToAttackHigh then
     PressStartLetter2a = PressStartToAttackLow
   elseif PressStartLetter2a == PressStartToAttackLow and PressStartLetter2b > PressStartToAttackLow then
-    PressStartLetter2b = PressStartLetter2b - PressStartToAttackSpeed
+    PressStartLetter2b = PressStartLetter2b - (math.random(1, PressStartToAttackSpeed) / 10.0)
   elseif PressStartLetter2a == PressStartToAttackLow then
     PressStartLetter2a = PressStartToAttackHigh	
   end
 	  
   if PressStartLetter3a == PressStartToAttackHigh and PressStartLetter3b < PressStartToAttackHigh then
-    PressStartLetter3b = PressStartLetter3b + PressStartToAttackSpeed
+    PressStartLetter3b = PressStartLetter3b + (math.random(1, PressStartToAttackSpeed) / 10.0)
   elseif PressStartLetter3a == PressStartToAttackHigh then
     PressStartLetter3a = PressStartToAttackLow
   elseif PressStartLetter3a == PressStartToAttackLow and PressStartLetter3b > PressStartToAttackLow then
-    PressStartLetter3b = PressStartLetter3b - PressStartToAttackSpeed
+    PressStartLetter3b = PressStartLetter3b - (math.random(1, PressStartToAttackSpeed) / 10.0)
   elseif PressStartLetter3a == PressStartToAttackLow then
     PressStartLetter3a = PressStartToAttackHigh	
   end
 	  
   if PressStartLetter4a == PressStartToAttackHigh and PressStartLetter4b < PressStartToAttackHigh then
-    PressStartLetter4b = PressStartLetter4b + PressStartToAttackSpeed
+    PressStartLetter4b = PressStartLetter4b + (math.random(1, PressStartToAttackSpeed) / 10.0)
   elseif PressStartLetter4a == PressStartToAttackHigh then
     PressStartLetter4a = PressStartToAttackLow
   elseif PressStartLetter4a == PressStartToAttackLow and PressStartLetter4b > PressStartToAttackLow then
-    PressStartLetter4b = PressStartLetter4b - PressStartToAttackSpeed
+    PressStartLetter4b = PressStartLetter4b - (math.random(1, PressStartToAttackSpeed) / 10.0)
   elseif PressStartLetter4a == PressStartToAttackLow then
     PressStartLetter4a = PressStartToAttackHigh	
   end
 	  
   if PressStartLetter5a == PressStartToAttackHigh and PressStartLetter5b < PressStartToAttackHigh then
-    PressStartLetter5b = PressStartLetter5b + PressStartToAttackSpeed
+    PressStartLetter5b = PressStartLetter5b + (math.random(1, PressStartToAttackSpeed) / 10.0)
   elseif PressStartLetter5a == PressStartToAttackHigh then
     PressStartLetter5a = PressStartToAttackLow
   elseif PressStartLetter5a == PressStartToAttackLow and PressStartLetter5b > PressStartToAttackLow then
-    PressStartLetter5b = PressStartLetter5b - PressStartToAttackSpeed
+    PressStartLetter5b = PressStartLetter5b - (math.random(1, PressStartToAttackSpeed) / 10.0)
   elseif PressStartLetter5a == PressStartToAttackLow then
     PressStartLetter5a = PressStartToAttackHigh	
   end
 	 
   if PressStartLetter6a == PressStartToAttackHigh and PressStartLetter6b < PressStartToAttackHigh then
-    PressStartLetter6b = PressStartLetter6b + PressStartToAttackSpeed
+    PressStartLetter6b = PressStartLetter6b + (math.random(1, PressStartToAttackSpeed) / 10.0)
   elseif PressStartLetter6a == PressStartToAttackHigh then
     PressStartLetter6a = PressStartToAttackLow
   elseif PressStartLetter6a == PressStartToAttackLow and PressStartLetter6b > PressStartToAttackLow then
-    PressStartLetter6b = PressStartLetter6b - PressStartToAttackSpeed
+    PressStartLetter6b = PressStartLetter6b - (math.random(1, PressStartToAttackSpeed) / 10.0)
   elseif PressStartLetter6a == PressStartToAttackLow then
     PressStartLetter6a = PressStartToAttackHigh	
   end
   
   if PressStartLetter7a == PressStartToAttackHigh and PressStartLetter7b < PressStartToAttackHigh then
-    PressStartLetter7b = PressStartLetter7b + PressStartToAttackSpeed
+    PressStartLetter7b = PressStartLetter7b + (math.random(1, PressStartToAttackSpeed) / 10.0)
   elseif PressStartLetter7a == PressStartToAttackHigh then
     PressStartLetter7a = PressStartToAttackLow
   elseif PressStartLetter7a == PressStartToAttackLow and PressStartLetter7b > PressStartToAttackLow then
-    PressStartLetter7b = PressStartLetter7b - PressStartToAttackSpeed
+    PressStartLetter7b = PressStartLetter7b - (math.random(1, PressStartToAttackSpeed) / 10.0)
   elseif PressStartLetter7a == PressStartToAttackLow then
     PressStartLetter7a = PressStartToAttackHigh	
   end
   
   if PressStartLetter8a == PressStartToAttackHigh and PressStartLetter8b < PressStartToAttackHigh then
-    PressStartLetter8b = PressStartLetter8b + PressStartToAttackSpeed
+    PressStartLetter8b = PressStartLetter8b + (math.random(1, PressStartToAttackSpeed) / 10.0)
   elseif PressStartLetter8a == PressStartToAttackHigh then
     PressStartLetter8a = PressStartToAttackLow
   elseif PressStartLetter8a == PressStartToAttackLow and PressStartLetter8b > PressStartToAttackLow then
-    PressStartLetter8b = PressStartLetter8b - PressStartToAttackSpeed
+    PressStartLetter8b = PressStartLetter8b - (math.random(1, PressStartToAttackSpeed) / 10.0)
   elseif PressStartLetter8a == PressStartToAttackLow then
     PressStartLetter8a = PressStartToAttackHigh	
   end
   
   if PressStartLetter9a == PressStartToAttackHigh and PressStartLetter9b < PressStartToAttackHigh then
-    PressStartLetter9b = PressStartLetter9b + PressStartToAttackSpeed
+    PressStartLetter9b = PressStartLetter9b + (math.random(1, PressStartToAttackSpeed) / 10.0)
   elseif PressStartLetter9a == PressStartToAttackHigh then
     PressStartLetter9a = PressStartToAttackLow
   elseif PressStartLetter9a == PressStartToAttackLow and PressStartLetter9b > PressStartToAttackLow then
-    PressStartLetter9b = PressStartLetter9b - PressStartToAttackSpeed
+    PressStartLetter9b = PressStartLetter9b - (math.random(1, PressStartToAttackSpeed) / 10.0)
   elseif PressStartLetter9a == PressStartToAttackLow then
     PressStartLetter9a = PressStartToAttackHigh	
   end
 
   if PressStartLetter10a == PressStartToAttackHigh and PressStartLetter10b < PressStartToAttackHigh then
-    PressStartLetter10b = PressStartLetter10b + PressStartToAttackSpeed
+    PressStartLetter10b = PressStartLetter10b + (math.random(1, PressStartToAttackSpeed) / 10.0)
   elseif PressStartLetter10a == PressStartToAttackHigh then
     PressStartLetter10a = PressStartToAttackLow
   elseif PressStartLetter10a == PressStartToAttackLow and PressStartLetter10b > PressStartToAttackLow then
-    PressStartLetter10b = PressStartLetter10b - PressStartToAttackSpeed
+    PressStartLetter10b = PressStartLetter10b - (math.random(1, PressStartToAttackSpeed) / 10.0)
   elseif PressStartLetter10a == PressStartToAttackLow then
     PressStartLetter10a = PressStartToAttackHigh	
   end
 
   if PressStartLetter11a == PressStartToAttackHigh and PressStartLetter11b < PressStartToAttackHigh then
-    PressStartLetter11b = PressStartLetter11b + PressStartToAttackSpeed
+    PressStartLetter11b = PressStartLetter11b + (math.random(1, PressStartToAttackSpeed) / 10.0)
   elseif PressStartLetter11a == PressStartToAttackHigh then
     PressStartLetter11a = PressStartToAttackLow
   elseif PressStartLetter11a == PressStartToAttackLow and PressStartLetter11b > PressStartToAttackLow then
-    PressStartLetter11b = PressStartLetter11b - PressStartToAttackSpeed
+    PressStartLetter11b = PressStartLetter11b - (math.random(1, PressStartToAttackSpeed) / 10.0)
   elseif PressStartLetter11a == PressStartToAttackLow then
     PressStartLetter11a = PressStartToAttackHigh	
   end
   
   if PressStartLetter12a == PressStartToAttackHigh and PressStartLetter12b < PressStartToAttackHigh then
-    PressStartLetter12b = PressStartLetter12b + PressStartToAttackSpeed
+    PressStartLetter12b = PressStartLetter12b + (math.random(1, PressStartToAttackSpeed) / 10.0)
   elseif PressStartLetter12a == PressStartToAttackHigh then
     PressStartLetter12a = PressStartToAttackLow
   elseif PressStartLetter12a == PressStartToAttackLow and PressStartLetter12b > PressStartToAttackLow then
-    PressStartLetter12b = PressStartLetter12b - PressStartToAttackSpeed
+    PressStartLetter12b = PressStartLetter12b - (math.random(1, PressStartToAttackSpeed) / 10.0)
   elseif PressStartLetter12a == PressStartToAttackLow then
     PressStartLetter12a = PressStartToAttackHigh	
   end
 
   if PressStartLetter13a == PressStartToAttackHigh and PressStartLetter13b < PressStartToAttackHigh then
-    PressStartLetter13b = PressStartLetter13b + PressStartToAttackSpeed
+    PressStartLetter13b = PressStartLetter13b + (math.random(1, PressStartToAttackSpeed) / 10.0)
   elseif PressStartLetter13a == PressStartToAttackHigh then
     PressStartLetter13a = PressStartToAttackLow
   elseif PressStartLetter13a == PressStartToAttackLow and PressStartLetter13b > PressStartToAttackLow then
-    PressStartLetter13b = PressStartLetter13b - PressStartToAttackSpeed
+    PressStartLetter13b = PressStartLetter13b - (math.random(1, PressStartToAttackSpeed) / 10.0)
   elseif PressStartLetter13a == PressStartToAttackLow then
     PressStartLetter13a = PressStartToAttackHigh	
   end
   
   if PressStartLetter14a == PressStartToAttackHigh and PressStartLetter14b < PressStartToAttackHigh then
-    PressStartLetter14b = PressStartLetter14b + PressStartToAttackSpeed
+    PressStartLetter14b = PressStartLetter14b + (math.random(1, PressStartToAttackSpeed) / 10.0)
   elseif PressStartLetter14a == PressStartToAttackHigh then
     PressStartLetter14a = PressStartToAttackLow
   elseif PressStartLetter14a == PressStartToAttackLow and PressStartLetter14b > PressStartToAttackLow then
-    PressStartLetter14b = PressStartLetter14b - PressStartToAttackSpeed
+    PressStartLetter14b = PressStartLetter14b - (math.random(1, PressStartToAttackSpeed) / 10.0)
   elseif PressStartLetter14a == PressStartToAttackLow then
     PressStartLetter14a = PressStartToAttackHigh	
   end
   
   if PressStartLetter15a == PressStartToAttackHigh and PressStartLetter15b < PressStartToAttackHigh then
-    PressStartLetter15b = PressStartLetter15b + PressStartToAttackSpeed
+    PressStartLetter15b = PressStartLetter15b + (math.random(1, PressStartToAttackSpeed) / 10.0)
   elseif PressStartLetter15a == PressStartToAttackHigh then
     PressStartLetter15a = PressStartToAttackLow
   elseif PressStartLetter15a == PressStartToAttackLow and PressStartLetter15b > PressStartToAttackLow then
-    PressStartLetter15b = PressStartLetter15b - PressStartToAttackSpeed
+    PressStartLetter15b = PressStartLetter15b - (math.random(1, PressStartToAttackSpeed) / 10.0)
   elseif PressStartLetter15a == PressStartToAttackLow then
     PressStartLetter15a = PressStartToAttackHigh	
   end
   
   if PressStartLetter16a == PressStartToAttackHigh and PressStartLetter16b < PressStartToAttackHigh then
-    PressStartLetter16b = PressStartLetter16b + PressStartToAttackSpeed
+    PressStartLetter16b = PressStartLetter16b + (math.random(1, PressStartToAttackSpeed) / 10.0)
   elseif PressStartLetter16a == PressStartToAttackHigh then
     PressStartLetter16a = PressStartToAttackLow
   elseif PressStartLetter16a == PressStartToAttackLow and PressStartLetter16b > PressStartToAttackLow then
-    PressStartLetter16b = PressStartLetter16b - PressStartToAttackSpeed
+    PressStartLetter16b = PressStartLetter16b - (math.random(1, PressStartToAttackSpeed) / 10.0)
   elseif PressStartLetter16a == PressStartToAttackLow then
     PressStartLetter16a = PressStartToAttackHigh	
   end
   
   if PressStartLetter17a == PressStartToAttackHigh and PressStartLetter17b < PressStartToAttackHigh then
-    PressStartLetter17b = PressStartLetter17b + PressStartToAttackSpeed
+    PressStartLetter17b = PressStartLetter17b + (math.random(1, PressStartToAttackSpeed) / 10.0)
   elseif PressStartLetter17a == PressStartToAttackHigh then
     PressStartLetter17a = PressStartToAttackLow
   elseif PressStartLetter17a == PressStartToAttackLow and PressStartLetter17b > PressStartToAttackLow then
-    PressStartLetter17b = PressStartLetter17b - PressStartToAttackSpeed
+    PressStartLetter17b = PressStartLetter17b - (math.random(1, PressStartToAttackSpeed) / 10.0)
   elseif PressStartLetter17a == PressStartToAttackLow then
     PressStartLetter17a = PressStartToAttackHigh	
   end
   
   if PressStartLetter18a == PressStartToAttackHigh and PressStartLetter18b < PressStartToAttackHigh then
-    PressStartLetter18b = PressStartLetter18b + PressStartToAttackSpeed
+    PressStartLetter18b = PressStartLetter18b + (math.random(1, PressStartToAttackSpeed) / 10.0)
   elseif PressStartLetter18a == PressStartToAttackHigh then
     PressStartLetter18a = PressStartToAttackLow
   elseif PressStartLetter18a == PressStartToAttackLow and PressStartLetter18b > PressStartToAttackLow then
-    PressStartLetter18b = PressStartLetter18b - PressStartToAttackSpeed
+    PressStartLetter18b = PressStartLetter18b - (math.random(1, PressStartToAttackSpeed) / 10.0)
   elseif PressStartLetter18a == PressStartToAttackLow then
     PressStartLetter18a = PressStartToAttackHigh	
   end
   
   if PressStartLetter19a == PressStartToAttackHigh and PressStartLetter19b < PressStartToAttackHigh then
-    PressStartLetter19b = PressStartLetter19b + PressStartToAttackSpeed
+    PressStartLetter19b = PressStartLetter19b + (math.random(1, PressStartToAttackSpeed) / 10.0)
   elseif PressStartLetter19a == PressStartToAttackHigh then
     PressStartLetter19a = PressStartToAttackLow
   elseif PressStartLetter19a == PressStartToAttackLow and PressStartLetter19b > PressStartToAttackLow then
-    PressStartLetter19b = PressStartLetter19b - PressStartToAttackSpeed
+    PressStartLetter19b = PressStartLetter19b - (math.random(1, PressStartToAttackSpeed) / 10.0)
   elseif PressStartLetter19a == PressStartToAttackLow then
     PressStartLetter19a = PressStartToAttackHigh	
   end
 
-  graphics.setColorTint(color4.new(math.random(1,255)/255, math.random(1,255)/255, math.random(1,255)/255, 1.0)) --Set text colour
-	 
+  graphics.setColorTint(color4.new(math.random(1,255)/255, math.random(1,255)/255, math.random(1,255)/255, 1.0)) --Set text colour	 
   graphics.drawFont(fontId, vector3.new(PressStartToAttackPositionX, PressStartToAttackPositionY + PressStartLetter1b, 0),"P")
+  graphics.setColorTint(color4.new(math.random(1,255)/255, math.random(1,255)/255, math.random(1,255)/255, 1.0)) --Set text colour
   graphics.drawFont(fontId, vector3.new(PressStartToAttackPositionX + 55, PressStartToAttackPositionY + PressStartLetter2b, 0),"r")
+  graphics.setColorTint(color4.new(math.random(1,255)/255, math.random(1,255)/255, math.random(1,255)/255, 1.0)) --Set text colour
   graphics.drawFont(fontId, vector3.new(PressStartToAttackPositionX + 94, PressStartToAttackPositionY + PressStartLetter3b, 0),"e")
+  graphics.setColorTint(color4.new(math.random(1,255)/255, math.random(1,255)/255, math.random(1,255)/255, 1.0)) --Set text colour
   graphics.drawFont(fontId, vector3.new(PressStartToAttackPositionX + 142, PressStartToAttackPositionY + PressStartLetter4b, 0),"s")
+  graphics.setColorTint(color4.new(math.random(1,255)/255, math.random(1,255)/255, math.random(1,255)/255, 1.0)) --Set text colour
   graphics.drawFont(fontId, vector3.new(PressStartToAttackPositionX + 181, PressStartToAttackPositionY + PressStartLetter5b, 0),"s")
+  graphics.setColorTint(color4.new(math.random(1,255)/255, math.random(1,255)/255, math.random(1,255)/255, 1.0)) --Set text colour
   graphics.drawFont(fontId, vector3.new(PressStartToAttackPositionX + 237, PressStartToAttackPositionY + PressStartLetter6b, 0),"S")
+  graphics.setColorTint(color4.new(math.random(1,255)/255, math.random(1,255)/255, math.random(1,255)/255, 1.0)) --Set text colour
   graphics.drawFont(fontId, vector3.new(PressStartToAttackPositionX + 285, PressStartToAttackPositionY + PressStartLetter7b, 0),"t")
+  graphics.setColorTint(color4.new(math.random(1,255)/255, math.random(1,255)/255, math.random(1,255)/255, 1.0)) --Set text colour
   graphics.drawFont(fontId, vector3.new(PressStartToAttackPositionX + 317, PressStartToAttackPositionY + PressStartLetter8b, 0),"a")
+  graphics.setColorTint(color4.new(math.random(1,255)/255, math.random(1,255)/255, math.random(1,255)/255, 1.0)) --Set text colour
   graphics.drawFont(fontId, vector3.new(PressStartToAttackPositionX + 365, PressStartToAttackPositionY + PressStartLetter9b, 0),"r")
+  graphics.setColorTint(color4.new(math.random(1,255)/255, math.random(1,255)/255, math.random(1,255)/255, 1.0)) --Set text colour
   graphics.drawFont(fontId, vector3.new(PressStartToAttackPositionX + 404, PressStartToAttackPositionY + PressStartLetter10b, 0),"t")
+  graphics.setColorTint(color4.new(math.random(1,255)/255, math.random(1,255)/255, math.random(1,255)/255, 1.0)) --Set text colour
   graphics.drawFont(fontId, vector3.new(PressStartToAttackPositionX + 453, PressStartToAttackPositionY + PressStartLetter11b, 0),"T")
+  graphics.setColorTint(color4.new(math.random(1,255)/255, math.random(1,255)/255, math.random(1,255)/255, 1.0)) --Set text colour
   graphics.drawFont(fontId, vector3.new(PressStartToAttackPositionX + 508, PressStartToAttackPositionY + PressStartLetter12b, 0),"o")  
+  graphics.setColorTint(color4.new(math.random(1,255)/255, math.random(1,255)/255, math.random(1,255)/255, 1.0)) --Set text colour
   graphics.drawFont(fontId, vector3.new(PressStartToAttackPositionX + 573, PressStartToAttackPositionY + PressStartLetter13b, 0),"A")
+  graphics.setColorTint(color4.new(math.random(1,255)/255, math.random(1,255)/255, math.random(1,255)/255, 1.0)) --Set text colour
   graphics.drawFont(fontId, vector3.new(PressStartToAttackPositionX + 636, PressStartToAttackPositionY + PressStartLetter14b, 0),"t")
+  graphics.setColorTint(color4.new(math.random(1,255)/255, math.random(1,255)/255, math.random(1,255)/255, 1.0)) --Set text colour
   graphics.drawFont(fontId, vector3.new(PressStartToAttackPositionX + 668, PressStartToAttackPositionY + PressStartLetter15b, 0),"t")
+  graphics.setColorTint(color4.new(math.random(1,255)/255, math.random(1,255)/255, math.random(1,255)/255, 1.0)) --Set text colour
   graphics.drawFont(fontId, vector3.new(PressStartToAttackPositionX + 700, PressStartToAttackPositionY + PressStartLetter16b, 0),"a")
+  graphics.setColorTint(color4.new(math.random(1,255)/255, math.random(1,255)/255, math.random(1,255)/255, 1.0)) --Set text colour
   graphics.drawFont(fontId, vector3.new(PressStartToAttackPositionX + 748, PressStartToAttackPositionY + PressStartLetter17b, 0),"c")
+  graphics.setColorTint(color4.new(math.random(1,255)/255, math.random(1,255)/255, math.random(1,255)/255, 1.0)) --Set text colour
   graphics.drawFont(fontId, vector3.new(PressStartToAttackPositionX + 787, PressStartToAttackPositionY + PressStartLetter18b, 0),"k")
+  graphics.setColorTint(color4.new(math.random(1,255)/255, math.random(1,255)/255, math.random(1,255)/255, 1.0)) --Set text colour
   graphics.drawFont(fontId, vector3.new(PressStartToAttackPositionX + 835, PressStartToAttackPositionY + PressStartLetter19b, 0),"!")
 	
   graphics.setColorTint(color4.new(255/255, 255/255, 255/255, 1.0)) -- Default colour back to white
