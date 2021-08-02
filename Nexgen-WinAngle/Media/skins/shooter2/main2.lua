@@ -1,11 +1,10 @@
 require("global:Globals")
-local sysinfo = require ("scripts:sysinfo")
 
 local backgroundTextureId = graphics.loadTexture("assets:images\\backgrounds\\background720.png")
 local screenMeshId = graphics.createPlaneXYMeshCollection(0, 0, 0, renderGetWidth(), renderGetHeight(), 1, 1)
 graphics.bindMesh(screenMeshId, 0)
 
-fontId = graphics.loadFont("assets:fonts\\MobileFont.fnt")
+local fontId = graphics.loadFont("assets:fonts\\MobileFont.fnt")
 
 local PlayerLeftImg, PlayerLeftImgWidth, PlayerLeftImgHeight = graphics.loadTexture("assets:images\\game\\planeleft.png"), 118, 84
 local PlayerMiddleImg, PlayerMiddleImgWidth, PlayerMiddleImgHeight = graphics.loadTexture("assets:images\\game\\planemiddle.png"), 118, 84
@@ -32,27 +31,27 @@ CanShootTimer = CanShootTimerMax
 function PressStartToAttackText()
   if PressStartToAttackVariables == nil then
     PressStartToAttackVariables = 1
-	PressStartToAttackHigh, PressStartToAttackLow, PressStartToAttackSpeed = 10, -10, (math.random(1, 50) / 10.0)
+	PressStartToAttackHigh, PressStartToAttackLow, PressStartToAttackSpeed = 10, -10, (math.random(1, 10) / 10.0)
 	PressStartToAttackPositionX, PressStartToAttackPositionY = 410 / 2, renderGetHeight() / 2
-    PressStartLetter1a, PressStartLetter1b = PressStartToAttackHigh, math.random(PressStartToAttackLow, PressStartToAttackHigh)
-    PressStartLetter2a, PressStartLetter2b = PressStartToAttackHigh, math.random(PressStartToAttackLow, PressStartToAttackHigh)
-    PressStartLetter3a, PressStartLetter3b = PressStartToAttackHigh, math.random(PressStartToAttackLow, PressStartToAttackHigh)
-    PressStartLetter4a, PressStartLetter4b = PressStartToAttackHigh, math.random(PressStartToAttackLow, PressStartToAttackHigh)
-    PressStartLetter5a, PressStartLetter5b = PressStartToAttackHigh, math.random(PressStartToAttackLow, PressStartToAttackHigh)	
-	PressStartLetter6a, PressStartLetter6b = PressStartToAttackHigh, math.random(PressStartToAttackLow, PressStartToAttackHigh)
-	PressStartLetter7a, PressStartLetter7b = PressStartToAttackHigh, math.random(PressStartToAttackLow, PressStartToAttackHigh)
-	PressStartLetter8a, PressStartLetter8b = PressStartToAttackHigh, math.random(PressStartToAttackLow, PressStartToAttackHigh)
-	PressStartLetter9a, PressStartLetter9b = PressStartToAttackHigh, math.random(PressStartToAttackLow, PressStartToAttackHigh)
-	PressStartLetter10a, PressStartLetter10b = PressStartToAttackHigh, math.random(PressStartToAttackLow, PressStartToAttackHigh)	
-	PressStartLetter11a, PressStartLetter11b = PressStartToAttackHigh, math.random(PressStartToAttackLow, PressStartToAttackHigh)
-	PressStartLetter12a, PressStartLetter12b = PressStartToAttackHigh, math.random(PressStartToAttackLow, PressStartToAttackHigh)	
-	PressStartLetter13a, PressStartLetter13b = PressStartToAttackHigh, math.random(PressStartToAttackLow, PressStartToAttackHigh)
-	PressStartLetter14a, PressStartLetter14b = PressStartToAttackHigh, math.random(PressStartToAttackLow, PressStartToAttackHigh)
-	PressStartLetter15a, PressStartLetter15b = PressStartToAttackHigh, math.random(PressStartToAttackLow, PressStartToAttackHigh)
-	PressStartLetter16a, PressStartLetter16b = PressStartToAttackHigh, math.random(PressStartToAttackLow, PressStartToAttackHigh)
-	PressStartLetter17a, PressStartLetter17b = PressStartToAttackHigh, math.random(PressStartToAttackLow, PressStartToAttackHigh)
-	PressStartLetter18a, PressStartLetter18b = PressStartToAttackHigh, math.random(PressStartToAttackLow, PressStartToAttackHigh)
-	PressStartLetter19a, PressStartLetter19b = PressStartToAttackHigh, math.random(PressStartToAttackLow, PressStartToAttackHigh)
+    PressStartLetter1a, PressStartLetter1b = 10, math.random(-10, 10)
+    PressStartLetter2a, PressStartLetter2b = 10, math.random(-10, 10)
+    PressStartLetter3a, PressStartLetter3b = 10, math.random(-10, 10)
+    PressStartLetter4a, PressStartLetter4b = 10, math.random(-10, 10)
+    PressStartLetter5a, PressStartLetter5b = 10, math.random(-10, 10)	
+	PressStartLetter6a, PressStartLetter6b = 10, math.random(-10, 10)
+	PressStartLetter7a, PressStartLetter7b = 10, math.random(-10, 10)
+	PressStartLetter8a, PressStartLetter8b = 10, math.random(-10, 10)
+	PressStartLetter9a, PressStartLetter9b = 10, math.random(-10, 10)
+	PressStartLetter10a, PressStartLetter10b = 10, math.random(-10, 10)	
+	PressStartLetter11a, PressStartLetter11b = 10, math.random(-10, 10)
+	PressStartLetter12a, PressStartLetter12b = 10, math.random(-10, 10)	
+	PressStartLetter13a, PressStartLetter13b = 10, math.random(-10, 10)
+	PressStartLetter14a, PressStartLetter14b = 10, math.random(-10, 10)
+	PressStartLetter15a, PressStartLetter15b = 10, math.random(-10, 10)
+	PressStartLetter16a, PressStartLetter16b = 10, math.random(-10, 10)
+	PressStartLetter17a, PressStartLetter17b = 10, math.random(-10, 10)
+	PressStartLetter18a, PressStartLetter18b = 10, math.random(-10, 10)
+	PressStartLetter19a, PressStartLetter19b = 10, math.random(-10, 10)
   end
 
   if PressStartLetter1a == PressStartToAttackHigh and PressStartLetter1b < PressStartToAttackHigh then
@@ -299,8 +298,6 @@ function onRender(dt)
     
 	
 	PressStartToAttackText()
-	
-	
     
     
     
@@ -396,8 +393,7 @@ function onRender(dt)
   
 
 
-  sysinfo.getFps(dt)
-  --sysinfo.getMemory(dt)
+  
   graphics.endScene()
   graphics.swapBuffers()
 end
