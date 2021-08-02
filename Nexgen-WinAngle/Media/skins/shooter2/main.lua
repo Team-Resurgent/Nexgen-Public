@@ -32,8 +32,9 @@ CanShootTimer = CanShootTimerMax
 function PressStartToAttackText()
   if PressStartToAttackVariables == nil then
     PressStartToAttackVariables = 1
-	PressStartToAttackHigh, PressStartToAttackLow, PressStartToAttackSpeed = 10, -10, (math.random(1, 50) / 10.0)
-	PressStartToAttackPositionX, PressStartToAttackPositionY = 410 / 2, renderGetHeight() / 2
+	PressStartToAttackWidth = 854
+	PressStartToAttackHigh, PressStartToAttackLow, PressStartToAttackSpeed = 10, -10, (math.random(1, 20) / 10.0)
+	PressStartToAttackPositionX, PressStartToAttackPositionY = (renderGetWidth() / 2) - (PressStartToAttackWidth / 2), renderGetHeight() / 2
     PressStartLetter1a, PressStartLetter1b = PressStartToAttackHigh, math.random(PressStartToAttackLow, PressStartToAttackHigh)
     PressStartLetter2a, PressStartLetter2b = PressStartToAttackHigh, math.random(PressStartToAttackLow, PressStartToAttackHigh)
     PressStartLetter3a, PressStartLetter3b = PressStartToAttackHigh, math.random(PressStartToAttackLow, PressStartToAttackHigh)
@@ -247,6 +248,7 @@ function PressStartToAttackText()
 
   graphics.setColorTint(color4.new(math.random(1,255)/255, math.random(1,255)/255, math.random(1,255)/255, 1.0)) --Set text colour
 	 
+  print (renderGetWidth())
   graphics.drawFont(fontId, vector3.new(PressStartToAttackPositionX, PressStartToAttackPositionY + PressStartLetter1b, 0),"P")
   graphics.drawFont(fontId, vector3.new(PressStartToAttackPositionX + 55, PressStartToAttackPositionY + PressStartLetter2b, 0),"r")
   graphics.drawFont(fontId, vector3.new(PressStartToAttackPositionX + 94, PressStartToAttackPositionY + PressStartLetter3b, 0),"e")
@@ -358,14 +360,14 @@ function onRender(dt)
   end
 
   for i,bullet in ipairs(PlayerBulletsL) do
-    bullet.y = bullet.y + (600*dt) 
+    bullet.y = bullet.y + (800*dt) 
     if bullet.y > renderGetHeight() then -- remove bullet if is out of screen
       table.remove(PlayerBulletsL, i)
     end
   end
   
   for i,bullet in ipairs(PlayerBulletsR) do
-    bullet.y = bullet.y + (600*dt)
+    bullet.y = bullet.y + (800*dt)
     if bullet.y > renderGetHeight() then -- remove bullet if is out of screen
       table.remove(PlayerBulletsR, i)
     end
