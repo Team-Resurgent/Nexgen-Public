@@ -248,7 +248,6 @@ function PressStartToAttackText()
 
   graphics.setColorTint(color4.new(math.random(1,255)/255, math.random(1,255)/255, math.random(1,255)/255, 1.0)) --Set text colour
 	 
-  print (renderGetWidth())
   graphics.drawFont(fontId, vector3.new(PressStartToAttackPositionX, PressStartToAttackPositionY + PressStartLetter1b, 0),"P")
   graphics.drawFont(fontId, vector3.new(PressStartToAttackPositionX + 55, PressStartToAttackPositionY + PressStartLetter2b, 0),"r")
   graphics.drawFont(fontId, vector3.new(PressStartToAttackPositionX + 94, PressStartToAttackPositionY + PressStartLetter3b, 0),"e")
