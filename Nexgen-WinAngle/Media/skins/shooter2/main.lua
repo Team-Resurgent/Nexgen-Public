@@ -32,7 +32,7 @@ CanShootTimer = CanShootTimerMax
 function PressStartToAttackText()
   if PressStartToAttackVariables == nil then
     PressStartToAttackVariables = 1
-	PressStartToAttackHigh, PressStartToAttackLow, PressStartToAttackSpeed, PressStartToAttackWidth = 10, -10, 25, 854
+	PressStartToAttackHigh, PressStartToAttackLow, PressStartToAttackSpeed, PressStartToAttackWidth = 5, -5, 25, 854
 	PressStartToAttackPositionX, PressStartToAttackPositionY = (renderGetWidth() / 2) - (PressStartToAttackWidth / 2), renderGetHeight() / 2
     PressStartLetter1a, PressStartLetter1b = PressStartToAttackHigh, math.random(PressStartToAttackLow, PressStartToAttackHigh)
     PressStartLetter2a, PressStartLetter2b = PressStartToAttackHigh, math.random(PressStartToAttackLow, PressStartToAttackHigh)
