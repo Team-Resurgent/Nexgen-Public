@@ -39,7 +39,7 @@ DisplayTextStart = 0
 DisplayTextCheck = " "
 
 
-function DisplayText(DisplayTextHigh, DisplayTextLow, DisplayTextSpeed, DisplayTextPhrase)
+function DisplayText(DisplayTextHigh, DisplayTextLow, DisplayTextSpeed, DisplayTextPhrase, dt)
   if DisplayTextCheck ~= DisplayTextPhrase then
     DisplayTextStart = 0
   end
@@ -60,12 +60,12 @@ function DisplayText(DisplayTextHigh, DisplayTextLow, DisplayTextSpeed, DisplayT
   DisplayTextPostion = 0 
    
   for DisplayTextAnimation = 1, DisplayTextLength do
-    	if DisplayTextLetterB[DisplayTextAnimation] == DisplayTextHigh and DisplayTextLetterC[DisplayTextAnimation] < DisplayTextHigh then
-      DisplayTextLetterC[DisplayTextAnimation] = DisplayTextLetterC[DisplayTextAnimation] + (math.random(1, DisplayTextSpeed) / 10.0)
+    if DisplayTextLetterB[DisplayTextAnimation] == DisplayTextHigh and DisplayTextLetterC[DisplayTextAnimation] < DisplayTextHigh then
+	  DisplayTextLetterC[DisplayTextAnimation] = DisplayTextLetterC[DisplayTextAnimation] + math.random(1, DisplayTextSpeed) * dt
     elseif DisplayTextLetterB[DisplayTextAnimation] == DisplayTextHigh then
       DisplayTextLetterB[DisplayTextAnimation] = DisplayTextLow
     elseif DisplayTextLetterB[DisplayTextAnimation] == DisplayTextLow and DisplayTextLetterC[DisplayTextAnimation] > DisplayTextLow then
-      DisplayTextLetterC[DisplayTextAnimation] = DisplayTextLetterC[DisplayTextAnimation] - (math.random(1, DisplayTextSpeed) / 10.0)
+	  DisplayTextLetterC[DisplayTextAnimation] = DisplayTextLetterC[DisplayTextAnimation] - math.random(1, DisplayTextSpeed) * dt
     elseif DisplayTextLetterB[DisplayTextAnimation] == DisplayTextLow then
       DisplayTextLetterB[DisplayTextAnimation] = DisplayTextHigh	
     end
@@ -111,7 +111,7 @@ function onRender(dt)
 	
     --fontId = graphics.loadFont("assets:fonts\\Mobile_79px.fnt")
 	
-	DisplayText(5, -5, 25, "Press Start To Attack!")
+	DisplayText(5, -5, 100, "Press Start To Attack!",dt)
 	
 	--fontId = graphics.loadFont("assets:fonts\\Mobile_39px.fnt")
 
