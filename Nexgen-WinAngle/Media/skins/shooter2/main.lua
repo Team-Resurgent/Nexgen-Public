@@ -39,7 +39,7 @@ DisplayTextStart = 0
 DisplayTextCheck = " "
 
 
-function DisplayText(DisplayTextHigh, DisplayTextLow, DisplayTextSpeed, DisplayTextPhrase, dt)
+function DisplayText(DisplayTextHigh, DisplayTextLow, DisplayTextSpeed, DisplayTextPhrase, DisplayTextDirection, DisplayTextReverse, dt)
   if DisplayTextCheck ~= DisplayTextPhrase then
     DisplayTextStart = 0
   end
@@ -51,15 +51,16 @@ function DisplayText(DisplayTextHigh, DisplayTextLow, DisplayTextSpeed, DisplayT
 	DisplayTextCheck = DisplayTextPhrase
     DisplayTextLength = string.len(DisplayTextPhrase)
     DisplayTextWidth = graphics.measureFont(fontId, DisplayTextPhrase) - DisplayTextLength    
-    DisplayTextPositionX, DisplayTextPositionY = (renderGetWidth() / 2) - (DisplayTextWidth / 2), renderGetHeight() / 2
+    DisplayTextPositionX, DisplayTextPositionXR, DisplayTextPositionY = (renderGetWidth() / 2) - (DisplayTextWidth / 2), (renderGetWidth() / 2) + (DisplayTextWidth / 2), renderGetHeight() / 2
 	DisplayTextLetterA, DisplayTextLetterB, DisplayTextLetterC, DisplayTextLetterD = {}, {}, {}, {}
+	DisplayTextEndPosition = DisplayTextLength
 	for DisplayTextStartPosition = 1, DisplayTextLength do
       DisplayTextLetterA[DisplayTextStartPosition] = string.sub(DisplayTextPhrase, DisplayTextStartPosition, DisplayTextStartPosition)
+	  DisplayTextLetterA[DisplayTextStartPosition + DisplayTextLength] = string.sub(DisplayTextPhrase, DisplayTextEndPosition, DisplayTextEndPosition)
 	  DisplayTextLetterB[DisplayTextStartPosition], DisplayTextLetterC[DisplayTextStartPosition] = DisplayTextHigh, math.random(DisplayTextLow, DisplayTextHigh)
+	  DisplayTextEndPosition = DisplayTextEndPosition - 1
     end
-  end
-
-  DisplayTextPostion = 0 
+  end 
    
   for DisplayTextAnimation = 1, DisplayTextLength do
     if DisplayTextLetterB[DisplayTextAnimation] == DisplayTextHigh and DisplayTextLetterC[DisplayTextAnimation] < DisplayTextHigh then
@@ -82,27 +83,44 @@ function DisplayText(DisplayTextHigh, DisplayTextLow, DisplayTextSpeed, DisplayT
   DisplayTextColour[5] = color4.new(0/255, 77/255, 255/255, 1.0) -- Blue
   DisplayTextColour[6] = color4.new(117/255, 7/255, 135/255, 1.0) -- Purple
   
+  if DisplayTextDirection == "Forward" then
+     DisplayTextPostion = 0
+     DisplayTextTableStart = 0	 
+  elseif DisplayTextDirection == "Backward" then
+    DisplayTextPostion = (0 - graphics.measureFont(fontId, DisplayTextLetterA[DisplayTextLength + 1])) / 2
+    DisplayTextTableStart = DisplayTextLength
+	DisplayTextBackwardsShift = 1
+  end
+  
   for DisplayTextRender = 1, DisplayTextLength do
     if DisplayTextColourSpeed == 0 then
-      if DisplayTextLetterA[DisplayTextRender] ~= " " then
+      if DisplayTextLetterA[DisplayTextRender + DisplayTextTableStart] ~= " " then
 	    DisplayTextLetterD[DisplayTextRender] = DisplayTextColourCount
 	    DisplayTextColourCount = DisplayTextColourCount + 1
-	  elseif DisplayTextLetterA[DisplayTextRender] == " " then
+	  elseif DisplayTextLetterA[DisplayTextRender + DisplayTextTableStart] == " " then
 	    DisplayTextLetterD[DisplayTextRender] = 0
-	  end
+	  end	  
 	  if DisplayTextColourCount >= #DisplayTextColour + 1 then
 	    DisplayTextColourCount = 1
 	  end
-    end
+    end	
 	graphics.setColorTint(DisplayTextColour[DisplayTextLetterD[DisplayTextRender]])
-    graphics.drawFont(fontId, vector3.new(DisplayTextPositionX + DisplayTextPostion, DisplayTextPositionY + DisplayTextLetterC[DisplayTextRender], 0),DisplayTextLetterA[DisplayTextRender])
-	DisplayTextPostion = DisplayTextPostion + (graphics.measureFont(fontId, DisplayTextLetterA[DisplayTextRender]) / 2)
+	if DisplayTextDirection == "Forward" then
+      graphics.drawFont(fontId, vector3.new(DisplayTextPositionX + DisplayTextPostion, DisplayTextPositionY + DisplayTextLetterC[DisplayTextRender], 0),DisplayTextLetterA[DisplayTextRender])
+	  DisplayTextPostion = DisplayTextPostion + (graphics.measureFont(fontId, DisplayTextLetterA[DisplayTextRender]) / 2)
+	elseif DisplayTextDirection == "Backward" then
+	  graphics.drawFont(fontId, vector3.new(DisplayTextPositionXR + DisplayTextPostion, DisplayTextPositionY + DisplayTextLetterC[DisplayTextRender], 0),DisplayTextLetterA[DisplayTextRender + DisplayTextLength])
+	  DisplayTextPostion = (DisplayTextPostion) - (graphics.measureFont(fontId, DisplayTextLetterA[DisplayTextRender + DisplayTextTableStart + DisplayTextBackwardsShift]) / 2)
+	  if DisplayTextRender + DisplayTextTableStart >= DisplayTextLength + DisplayTextLength - 1 then
+	    DisplayTextBackwardsShift = 0
+	  end
+	end
   end
 	
-	DisplayTextColourSpeed = DisplayTextColourSpeed + 1
-	if DisplayTextColourSpeed >= 250 * dt then
-	  DisplayTextColourSpeed = 0
-	end
+  DisplayTextColourSpeed = DisplayTextColourSpeed + 1
+  if DisplayTextColourSpeed >= 250 * dt then
+	DisplayTextColourSpeed = 0
+  end
 	
   graphics.setColorTint(color4.new(255/255, 255/255, 255/255, 1.0)) -- Default colour back to white
 end
@@ -139,7 +157,7 @@ function onRender(dt)
 	
     --fontId = graphics.loadFont("assets:fonts\\Mobile_79px.fnt")
 	
-	DisplayText(5, -5, 100, "Press Start To Attack!",dt)
+	DisplayText(5, -5, 100, "My Name Is Amy!!", "Backward", "None", dt)
 	
 	--fontId = graphics.loadFont("assets:fonts\\Mobile_39px.fnt")
 
