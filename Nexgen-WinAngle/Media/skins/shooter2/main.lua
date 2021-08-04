@@ -45,12 +45,14 @@ function DisplayText(DisplayTextHigh, DisplayTextLow, DisplayTextSpeed, DisplayT
   end
 
   if DisplayTextStart == 0 then
+    DisplayTextColourCount = 1
+	DisplayTextColourSpeed = 0
     DisplayTextStart = 1
 	DisplayTextCheck = DisplayTextPhrase
     DisplayTextLength = string.len(DisplayTextPhrase)
     DisplayTextWidth = graphics.measureFont(fontId, DisplayTextPhrase) - DisplayTextLength    
     DisplayTextPositionX, DisplayTextPositionY = (renderGetWidth() / 2) - (DisplayTextWidth / 2), renderGetHeight() / 2
-	DisplayTextLetterA, DisplayTextLetterB, DisplayTextLetterC = {}, {}, {}
+	DisplayTextLetterA, DisplayTextLetterB, DisplayTextLetterC, DisplayTextLetterD = {}, {}, {}, {}
 	for DisplayTextStartPosition = 1, DisplayTextLength do
       DisplayTextLetterA[DisplayTextStartPosition] = string.sub(DisplayTextPhrase, DisplayTextStartPosition, DisplayTextStartPosition)
 	  DisplayTextLetterB[DisplayTextStartPosition], DisplayTextLetterC[DisplayTextStartPosition] = DisplayTextHigh, math.random(DisplayTextLow, DisplayTextHigh)
@@ -71,18 +73,44 @@ function DisplayText(DisplayTextHigh, DisplayTextLow, DisplayTextSpeed, DisplayT
     end
   end
   
+  DisplayTextColour = {}
+  DisplayTextColour[0] = color4.new(0/255, 0/255, 0/255, 1.0) -- Black
+  DisplayTextColour[1] = color4.new(228/255, 3/255, 3/255, 1.0) -- Red
+  DisplayTextColour[2] = color4.new(255/255, 140/255, 0/255, 1.0) -- Orange
+  DisplayTextColour[3] = color4.new(255/255, 237/255, 0/255, 1.0) -- Yellow
+  DisplayTextColour[4] = color4.new(0/255, 128/255, 38/255, 1.0) -- Green
+  DisplayTextColour[5] = color4.new(0/255, 77/255, 255/255, 1.0) -- Blue
+  DisplayTextColour[6] = color4.new(117/255, 7/255, 135/255, 1.0) -- Purple
+  
   for DisplayTextRender = 1, DisplayTextLength do
-    graphics.setColorTint(color4.new(math.random(1,255)/255, math.random(1,255)/255, math.random(1,255)/255, 1.0))
+    if DisplayTextColourSpeed == 0 then
+      if DisplayTextLetterA[DisplayTextRender] ~= " " then
+	    DisplayTextLetterD[DisplayTextRender] = DisplayTextColourCount
+	    DisplayTextColourCount = DisplayTextColourCount + 1
+	  elseif DisplayTextLetterA[DisplayTextRender] == " " then
+	    DisplayTextLetterD[DisplayTextRender] = 0
+	  end
+	  if DisplayTextColourCount >= #DisplayTextColour + 1 then
+	    DisplayTextColourCount = 1
+	  end
+    end
+	graphics.setColorTint(DisplayTextColour[DisplayTextLetterD[DisplayTextRender]])
     graphics.drawFont(fontId, vector3.new(DisplayTextPositionX + DisplayTextPostion, DisplayTextPositionY + DisplayTextLetterC[DisplayTextRender], 0),DisplayTextLetterA[DisplayTextRender])
 	DisplayTextPostion = DisplayTextPostion + (graphics.measureFont(fontId, DisplayTextLetterA[DisplayTextRender]) / 2)
   end
 	
+	DisplayTextColourSpeed = DisplayTextColourSpeed + 1
+	if DisplayTextColourSpeed >= 250 * dt then
+	  DisplayTextColourSpeed = 0
+	end
+	
   graphics.setColorTint(color4.new(255/255, 255/255, 255/255, 1.0)) -- Default colour back to white
 end
 
+graphics.setColorTint(color4.new(255/255, 255/255, 255/255, 1.0)) -- Default colour back to white
 
 function onRender(dt)
-    graphics.setColorTint(color4.new(255/255, 255/255, 255/255, 1.0)) -- Default colour back to white
+    
     local eye = vector3.new(0, 0, 2)
     local target = vector3.new(0, 0, 0)
     local up = vector3.new(0, 1, 0)
