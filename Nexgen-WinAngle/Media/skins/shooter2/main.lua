@@ -183,7 +183,7 @@ function onRender(dt)
 	--Render Text Left To Right Or Right To Left ("Forward" or "Backward")
 	--Set Text To Cycle Colour Or Glow From One Colour To The Next ("Cycle" Or "Glow")
     --Set Speed Between Colour Change
-	--Set Colour Paltter, Other Colour Paletts Must Be Added To The Function 
+	--Set Colour Palette, Other Colour Paletts Must Be Added To The Function 
 	
 	DisplayText(5, -5, 100, "My Name Is Amy!!", "Backward", "Cycle", 250, 1, dt)
 	
