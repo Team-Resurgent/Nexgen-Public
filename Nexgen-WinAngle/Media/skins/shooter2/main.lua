@@ -39,7 +39,7 @@ DisplayTextStart = 0
 DisplayTextCheck = " "
 
 
-function DisplayText(DisplayTextHigh, DisplayTextLow, DisplayTextSpeed, DisplayTextPhrase, DisplayTextDirection, DisplayTextReverse, dt)
+function DisplayText(DisplayTextHigh, DisplayTextLow, DisplayTextSpeed, DisplayTextPhrase, DisplayTextDirection, DisplayTextGlow, DisplayTextColourCycleSpeed, DisplayTextColourPalette, dt)
   if DisplayTextCheck ~= DisplayTextPhrase then
     DisplayTextStart = 0
   end
@@ -74,14 +74,21 @@ function DisplayText(DisplayTextHigh, DisplayTextLow, DisplayTextSpeed, DisplayT
     end
   end
   
+  if DisplayTextColourPalette == 1 then
   DisplayTextColour = {}
-  DisplayTextColour[0] = color4.new(0/255, 0/255, 0/255, 1.0) -- Black
-  DisplayTextColour[1] = color4.new(228/255, 3/255, 3/255, 1.0) -- Red
-  DisplayTextColour[2] = color4.new(255/255, 140/255, 0/255, 1.0) -- Orange
-  DisplayTextColour[3] = color4.new(255/255, 237/255, 0/255, 1.0) -- Yellow
-  DisplayTextColour[4] = color4.new(0/255, 128/255, 38/255, 1.0) -- Green
-  DisplayTextColour[5] = color4.new(0/255, 77/255, 255/255, 1.0) -- Blue
-  DisplayTextColour[6] = color4.new(117/255, 7/255, 135/255, 1.0) -- Purple
+    DisplayTextColour[0] = color4.new(0/255, 0/255, 0/255, 1.0) -- Black (Must Always Be Here)
+    DisplayTextColour[1] = color4.new(228/255, 3/255, 3/255, 1.0) -- Red
+    DisplayTextColour[2] = color4.new(255/255, 140/255, 0/255, 1.0) -- Orange
+    DisplayTextColour[3] = color4.new(255/255, 237/255, 0/255, 1.0) -- Yellow
+    DisplayTextColour[4] = color4.new(0/255, 128/255, 38/255, 1.0) -- Green
+    DisplayTextColour[5] = color4.new(0/255, 77/255, 255/255, 1.0) -- Blue
+    DisplayTextColour[6] = color4.new(117/255, 7/255, 135/255, 1.0) -- Purple
+  elseif DisplayTextColourPalette == 2 then
+  DisplayTextColour = {}
+    DisplayTextColour[0] = color4.new(0/255, 0/255, 0/255, 1.0) -- Black  (Must Always Be Here)
+	DisplayTextColour[1] = color4.new(0/255, 0/255, 0/255, 1.0) -- Black
+    DisplayTextColour[2] = color4.new(228/255, 3/255, 3/255, 1.0) -- Red    
+  end
   
   if DisplayTextDirection == "Forward" then
      DisplayTextPostion = 0
@@ -91,9 +98,9 @@ function DisplayText(DisplayTextHigh, DisplayTextLow, DisplayTextSpeed, DisplayT
     DisplayTextTableStart = DisplayTextLength
 	DisplayTextBackwardsShift = 1
   end
-  
+   
   for DisplayTextRender = 1, DisplayTextLength do
-    if DisplayTextColourSpeed == 0 then
+    if DisplayTextColourSpeed == 0 and DisplayTextGlow == "Cycle" then
       if DisplayTextLetterA[DisplayTextRender + DisplayTextTableStart] ~= " " then
 	    DisplayTextLetterD[DisplayTextRender] = DisplayTextColourCount
 	    DisplayTextColourCount = DisplayTextColourCount + 1
@@ -104,7 +111,12 @@ function DisplayText(DisplayTextHigh, DisplayTextLow, DisplayTextSpeed, DisplayT
 	    DisplayTextColourCount = 1
 	  end
     end	
-	graphics.setColorTint(DisplayTextColour[DisplayTextLetterD[DisplayTextRender]])
+	if DisplayTextGlow == "Cycle" then
+	  graphics.setColorTint(DisplayTextColour[DisplayTextLetterD[DisplayTextRender]])
+	elseif DisplayTextGlow == "Glow" then
+	  graphics.setColorTint(DisplayTextColour[DisplayTextColourCount])
+	  print (DisplayTextColourCount)
+  	end 	
 	if DisplayTextDirection == "Forward" then
       graphics.drawFont(fontId, vector3.new(DisplayTextPositionX + DisplayTextPostion, DisplayTextPositionY + DisplayTextLetterC[DisplayTextRender], 0),DisplayTextLetterA[DisplayTextRender])
 	  DisplayTextPostion = DisplayTextPostion + (graphics.measureFont(fontId, DisplayTextLetterA[DisplayTextRender]) / 2)
@@ -118,8 +130,14 @@ function DisplayText(DisplayTextHigh, DisplayTextLow, DisplayTextSpeed, DisplayT
   end
 	
   DisplayTextColourSpeed = DisplayTextColourSpeed + 1
-  if DisplayTextColourSpeed >= 250 * dt then
+  if DisplayTextColourSpeed >= DisplayTextColourCycleSpeed * dt then
 	DisplayTextColourSpeed = 0
+	if DisplayTextGlow == "Glow" then
+      DisplayTextColourCount = DisplayTextColourCount + 1
+	  if DisplayTextColourCount >= #DisplayTextColour + 1 then
+	    DisplayTextColourCount = 1
+	  end
+    end
   end
 	
   graphics.setColorTint(color4.new(255/255, 255/255, 255/255, 1.0)) -- Default colour back to white
@@ -157,10 +175,19 @@ function onRender(dt)
 	
     --fontId = graphics.loadFont("assets:fonts\\Mobile_79px.fnt")
 	
-	DisplayText(5, -5, 100, "My Name Is Amy!!", "Backward", "None", dt)
+	--DisplayText Function Options
+	--How Far To Move Letters Up
+	--How Far To Move Letters Down
+	--How Fast Letter Move Up And Down
+	--Type Text To Display ("Text")
+	--Render Text Left To Right Or Right To Left ("Forward" or "Backward")
+	--Set Text To Cycle Colour Or Glow From One Colour To The Next ("Cycle" Or "Glow")
+    --Set Speed Between Colour Change
+	--Set Colour Paltter, Other Colour Paletts Must Be Added To The Function 
+	
+	DisplayText(5, -5, 100, "My Name Is Amy!!", "Backward", "Cycle", 600, 2, dt)
 	
 	--fontId = graphics.loadFont("assets:fonts\\Mobile_39px.fnt")
-
 
   if (controller.isButtonHeld(0, controller.Button['DpadLeft'])) then
     PlaneLMRTrack = 1
