@@ -185,7 +185,7 @@ function onRender(dt)
     --Set Speed Between Colour Change
 	--Set Colour Paltter, Other Colour Paletts Must Be Added To The Function 
 	
-	DisplayText(5, -5, 100, "My Name Is Amy!!", "Backward", "Cycle", 600, 2, dt)
+	DisplayText(5, -5, 100, "My Name Is Amy!!", "Backward", "Cycle", 250, 1, dt)
 	
 	--fontId = graphics.loadFont("assets:fonts\\Mobile_39px.fnt")
 
