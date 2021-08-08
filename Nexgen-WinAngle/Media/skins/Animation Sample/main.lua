@@ -24,8 +24,6 @@ table.insert(Waves,graphics.loadTexture("assets:\\images\\sprites\\waves\\water_
 table.insert(Waves,graphics.loadTexture("assets:\\images\\sprites\\waves\\water_ripple_big_004.png"))
 
 
-print(#Waves)
-
 -- Set current wave frame to 1 since tables start at 1
 WaveCurrentFrame = 1
 
