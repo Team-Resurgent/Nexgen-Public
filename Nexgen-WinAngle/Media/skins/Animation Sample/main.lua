@@ -23,6 +23,9 @@ table.insert(Waves,graphics.loadTexture("assets:\\images\\sprites\\waves\\water_
 table.insert(Waves,graphics.loadTexture("assets:\\images\\sprites\\waves\\water_ripple_big_003.png"))
 table.insert(Waves,graphics.loadTexture("assets:\\images\\sprites\\waves\\water_ripple_big_004.png"))
 
+
+print(#Waves)
+
 -- Set current wave frame to 1 since tables start at 1
 WaveCurrentFrame = 1
 
@@ -80,7 +83,9 @@ function onRender(dt)
 
 -- Control the speed of the wave animation and also loop through all the waves
 WaveCurrentFrame = WaveCurrentFrame + 10 *dt
-if WaveCurrentFrame > #Waves then
+
+
+if math.floor (WaveCurrentFrame) > #Waves then
 WaveCurrentFrame = 1
 end   
 
