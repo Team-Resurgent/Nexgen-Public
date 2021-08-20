@@ -73,6 +73,20 @@ function graphics.activateTexture(textureId)
 end
 
 --[[
+% getTextureSize(textureId)
+
+Measures font message size.
+
+@ textureId (integer) ID of texture
+
+: (integer) width
+: (integer) height
+--]]
+function graphics.getTextureSize(textureId)
+	return renderGetTextureSize(textureId)
+end
+
+--[[
 % deleteTexture(textureId)
 
 Used to unbind texture from GPU and remove from memory.
@@ -108,7 +122,7 @@ Used to create a mesh collection into memory consising of a single mesh. The mes
 @ z (number) z position
 @ width (number) width
 @ height (number) height
-@ width (number) width
+@ rows (number) rows
 @ cols (number) cols
 
 : (integer) ID of mesh collection, otherwise 0
@@ -127,7 +141,7 @@ Used to create a mesh collection into memory consising of a single mesh. The mes
 @ z (number) z position
 @ width (number) width
 @ height (number) height
-@ width (number) width
+@ rows (number) rows
 @ cols (number) cols
 
 : (integer) ID of mesh collection, otherwise 0
@@ -331,6 +345,19 @@ function graphics.loadFont(path)
 end
 
 --[[
+% deleteFont(fontId)
+
+Used to unbind font from GPU and remove from memory.
+
+@ fontId (integer) ID of font
+
+: (boolean) Whether or not the operation succeeded
+--]]
+function graphics.deleteFont(fontId)
+	return renderDeleteFont(fontId)
+end
+
+--[[
 % drawFont(fontId, position, message)
 
 Draws font to current render buffer
@@ -436,25 +463,27 @@ function graphics.getHeight()
 end
 
 --[[
-% disableDepth()
+% disableDepthTest()
 
 Disables depth testing
 
 : (boolean) Whether or not the operation succeeded
 --]]
-function graphics.disableDepth()
-	return renderDisableDepth()
+function graphics.disableDepthTest()
+	return renderDisableDepthTest()
 end
 
 --[[
-% enableDepth()
+% enableDepthTest()
 
 Enables depth testing
 
+@ depthOp (integer) depth operation
+
 : (boolean) Whether or not the operation succeeded
 --]]
-function graphics.enableDepth()
-	return renderEnableDepth()
+function graphics.enableDepthTest(depthOpId)
+	return renderEnableDepthTest(depthOpId)
 end
 
 --[[
@@ -466,8 +495,8 @@ Enables culling
 
 : (boolean) Whether or not the operation succeeded
 --]]
-function graphics.cullingMode(cullingMode)
-	return renderCullingMode(cullingMode)
+function graphics.cullingMode(cullingModeId)
+	return renderCullingMode(cullingModeId)
 end
 
 --[[
@@ -655,8 +684,8 @@ Enables blending
 
 : (boolean) Whether or not the operation succeeded
 --]]
-function graphics.enableBlend(blendOp, sFactor, dFactor)
-	return renderEnableBlend(blendOp, sFactor, dFactor)
+function graphics.enableBlend(blendOpId, sFactor, dFactor)
+	return renderEnableBlend(blendOpId, sFactor, dFactor)
 end
 
 --[[
@@ -699,18 +728,94 @@ function graphics.swapBuffers()
 	return renderSwapBuffers()	
 end
 
+--[[
+% DepthOp['DepthOpId']
+
+
+Collection of DepthOp Id values to number. Example:
+
+
+@ Never (string) Never passes = 0
+@ Less (string) Passes if the incoming depth value is less than the stored depth value = 1
+@ Equal (string) Passes if the incoming depth value is equal to the stored depth value = 2
+@ LessEqual (string) Passes if the incoming depth value is less than or equal to the stored depth value = 3
+@ Greater (string) Passes if the incoming depth value is greater than the stored depth value = 4
+@ NotEqual (string) Passes if the incoming depth value is not equal to the stored depth value = 5
+@ GreaterEqual (string) Passes if the incoming depth value is greater than or equal to the stored depth value = 6
+@ Always (string) Always passes = 7
+--]]
+
+graphics.DepthOp = {
+	['Never'] = 0,
+	['Less'] = 1,
+	['Equal'] = 2,
+	['LessEqual'] = 3,
+	['Greater'] = 4,
+	['NotEqual'] = 5,
+	['GreaterEqual'] = 6,
+	['Always'] = 7
+}
+
+--[[
+% CullingMode['CullingModeId']
+
+
+Collection of CullingMode Id values to number. Example:
+
+
+@ None (string) Does not cull faces = 0
+@ Front (string) Culls front faces = 1
+@ Back (string) Culls back faces = 2
+
+--]]
 graphics.CullingMode = {
 	['None'] = 0,
 	['Front'] = 1,
 	['Back'] = 2
 }
 
+--[[
+% BlendOp['BlendOpId']
+
+
+Collection of BlendOp Id values to number. Example:
+
+
+@ Add (string) The source and destination are added to each other = 0
+@ Subtract (string) Subtracts the destination from the source = 1
+@ InvSubtract (string) Subtracts the source from the destination = 2
+
+--]]
 graphics.BlendOp = {
 	['Add'] = 0,
 	['Subtract'] = 1,
 	['InvSubtract'] = 2
 }
 
+--[[
+% BlendFactor['BlendFactorId']
+
+
+Collection of BlendFactor Id values to number. Example:
+
+
+@ Zero (string) = 0
+@ One (string) = 1
+@ SrcColor (string) = 2
+@ OneMinusSrcColor (string) = 3
+@ DstColor (string) = 4
+@ OneMinusDstColor (string) = 5
+@ SrcAlpha (string) = 6
+@ OneMinusSrcAlpha (string) = 7
+@ DstAlpha (string) = 8
+@ OneMinusDstAlpha (string) = 9
+@ ConstantColor (string) = 10
+@ OneMinusConstantColor (string) = 11
+@ ConstantAlpha (string) = 12
+@ OneMinusConstantAlpha (string) = 13
+@ AlphaSaturate (string) = 14
+
+--]]
 graphics.BlendFactor = {
 	['Zero'] = 0,
 	['One'] = 1,

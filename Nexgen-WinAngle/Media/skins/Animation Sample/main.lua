@@ -1,13 +1,13 @@
 --###############################################################################################
 
--- Basic Animation Sample (Waves).
+-- Basic Animation Sample (waves).
 -- Using individual images and tables to animate the effect of waves around the ship.
 -- Use the Dpad to move the ship on screen.
 
 -- Author: Team Resurgent.
 -- 17/08/2021.
 
--- The following are shortcut paths to the root folder of current skin. 
+-- The following are shortcut paths to the root folder of current skin.
 -- media: skin: scripts: audio: assets:
 
 --###############################################################################################
@@ -19,48 +19,56 @@
 require("global:Globals")
 
 -- Load ship texture and store ships width & height into variables.
-Ship = graphics.loadTexture("assets:images\\boat\\ship_large_body.png")
-ShipWidth, ShipHeight = graphics.getTextureSize(Ship)
+local ship = graphics.loadTexture("assets:images\\boat\\ship_large_body.png")
+local shipWidth, shipHeight = graphics.getTextureSize(ship)
 
 -- Create a table and store  X & Y positions along with movement speed.
-ShipTable = {x = renderGetWidth() / 2, y = renderGetHeight() - ShipHeight, Speed = 100}
+local shipTable = {
+      x = renderGetWidth() / 2,
+      y = renderGetHeight() - shipHeight,
+      speed = 100
+}
 
 -- Create a table that holds all the wave sprites.
-Waves = {}
-table.insert(Waves, graphics.loadTexture("assets:\\images\\sprites\\waves\\water_ripple_big_000.png"))
-table.insert(Waves, graphics.loadTexture("assets:\\images\\sprites\\waves\\water_ripple_big_001.png"))
-table.insert(Waves, graphics.loadTexture("assets:\\images\\sprites\\waves\\water_ripple_big_002.png"))
-table.insert(Waves, graphics.loadTexture("assets:\\images\\sprites\\waves\\water_ripple_big_003.png"))
-table.insert(Waves, graphics.loadTexture("assets:\\images\\sprites\\waves\\water_ripple_big_004.png"))
+local waves = {
+      graphics.loadTexture("assets:\\images\\sprites\\waves\\water_ripple_big_000.png"),
+      graphics.loadTexture("assets:\\images\\sprites\\waves\\water_ripple_big_001.png"),
+      graphics.loadTexture("assets:\\images\\sprites\\waves\\water_ripple_big_002.png"),
+      graphics.loadTexture("assets:\\images\\sprites\\waves\\water_ripple_big_003.png"),
+      graphics.loadTexture("assets:\\images\\sprites\\waves\\water_ripple_big_004.png")
+}
 
 -- Set current wave frame to 1 since tables start at 1.
-WaveCurrentFrame = 1
+local waveCurrentFrame = 1
 
 -- Load background texture / wallpaper.
 local backgroundTextureId = graphics.loadTexture("assets:images\\backgrounds\\Water.png")
 local screenMeshId = graphics.createPlaneXYMeshCollection(0, 0, 0, renderGetWidth(), renderGetHeight(), 1, 1)
 graphics.bindMesh(screenMeshId, 0)
 
+-- Define variables.
+local direction
+
 --###############################################################################################
 -- Create a function that controls boat movement.
 --###############################################################################################
 
--- Function that controls movement of ship X & Y cords, Initial values are read from ShipTable we created earlier.
+-- Function that controls movement of ship X & Y cords, Initial values are read from shipTable we created earlier.
 function Move(dt)
-      if direction == "Left" and ShipTable.x > 0 then -- ensure ship is always in window
-            ShipTable.x = ShipTable.x - (ShipTable.Speed * dt)
+      if direction == "Left" and shipTable.x > 0 then -- ensure ship is always in window
+            shipTable.x = shipTable.x - (shipTable.speed * dt)
       end
 
-      if direction == "Right" and ShipTable.x < (renderGetWidth() - ShipWidth) then -- ensure ship is always in window
-            ShipTable.x = ShipTable.x + (ShipTable.Speed * dt)
+      if direction == "Right" and shipTable.x < (renderGetWidth() - shipWidth) then -- ensure ship is always in window
+            shipTable.x = shipTable.x + (shipTable.speed * dt)
       end
 
-      if direction == "Down" and ShipTable.y > 0 then -- ensure ship is always in window
-            ShipTable.y = ShipTable.y - (ShipTable.Speed * dt)
+      if direction == "Down" and shipTable.y > 0 then -- ensure ship is always in window
+            shipTable.y = shipTable.y - (shipTable.speed * dt)
       end
 
-      if direction == "Up" and ShipTable.y < (renderGetHeight() - ShipHeight) then -- ensure ship is always in window
-            ShipTable.y = ShipTable.y + (ShipTable.Speed * dt)
+      if direction == "Up" and shipTable.y < (renderGetHeight() - shipHeight) then -- ensure ship is always in window
+            shipTable.y = shipTable.y + (shipTable.speed * dt)
       end
 end
 
@@ -76,32 +84,24 @@ end
 
 function onRender(dt)
       -- Control the speed of the wave animation and also loop through all the waves
-      WaveCurrentFrame = WaveCurrentFrame + 10 * dt
+      waveCurrentFrame = waveCurrentFrame + 10 * dt
 
-      if math.floor(WaveCurrentFrame) > #Waves then
-            WaveCurrentFrame = 1
+      if math.floor(waveCurrentFrame) > #waves then
+            waveCurrentFrame = 1
       end
 
-      -- Ship Controls using Dpad
+      -- ship Controls using Dpad
       if (controller.isButtonHeld(0, controller.Button["DpadLeft"])) then
-            if ShipTable.x > 0 then -- ensure ship is always in window
-                  direction = "Left"
-            end
+            direction = "Left"
       elseif (controller.isButtonHeld(0, controller.Button["DpadRight"])) then
-            if ShipTable.x < (renderGetWidth() - ShipWidth) then -- ensure ship is always in window
-                  direction = "Right"
-            end
+            direction = "Right"
       elseif (controller.isButtonHeld(0, controller.Button["DpadDown"])) then
-            if ShipTable.y > 0 then -- ensure ship is always in window
-                  direction = "Down"
-            end
+            direction = "Down"
       elseif (controller.isButtonHeld(0, controller.Button["DpadUp"])) then
-            if ShipTable.y < (renderGetHeight() - ShipHeight) then -- ensure ship is always in window
-                  direction = "Up"
-            end
+            direction = "Up"
       end
 
-      -- Calls function Move(dt) 
+      -- Calls function Move(dt)
       Move(dt)
 
       --###############################################################################################
@@ -119,30 +119,29 @@ function onRender(dt)
 
             graphics.clear(true, 1.0, true, 0, true, color4.new(0.227, 0.227, 0.227, 1.0))
             graphics.setColorTint(color4.new(255 / 255, 255 / 255, 255 / 255, 1.0)) -- Default color to white atleast once to render screen
-
-            -- Reender Background onto screen
-            graphics.disableDepth()
             graphics.setModelMatrix(modelMatrix)
             graphics.setViewMatrix(viewMatrix)
             graphics.setProjectionMatrix(orthoMatrix)
+
+            -- Reender Background onto screen
             graphics.activateTexture(backgroundTextureId)
             graphics.activateMesh(screenMeshId, 0)
             graphics.drawMesh(0, 6)
 
             -- Render ship & waves onto screen
             graphics.drawNinePatch(
-                  Waves[math.floor(WaveCurrentFrame)],
-                  vector3.new(ShipTable.x, ShipTable.y, 0.0),
-                  ShipWidth,
-                  ShipHeight,
+                  waves[math.floor(waveCurrentFrame)],
+                  vector3.new(shipTable.x, shipTable.y, 0.0),
+                  shipWidth,
+                  shipHeight,
                   0.0,
                   0.0
             )
             graphics.drawNinePatch(
-                  Ship,
-                  vector3.new(ShipTable.x + 15, ShipTable.y + 15, 0.0),
-                  ShipWidth - 30,
-                  ShipHeight - 30,
+                  ship,
+                  vector3.new(shipTable.x + 15, shipTable.y + 15, 0.0),
+                  shipWidth - 30,
+                  shipHeight - 30,
                   0.0,
                   0.0
             )

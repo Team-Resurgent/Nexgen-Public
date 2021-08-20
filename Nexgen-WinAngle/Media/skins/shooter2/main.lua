@@ -159,7 +159,7 @@ function onRender(dt)
 
         -- Background
 
-        graphics.disableDepth()
+        graphics.disableDepthTest()
         graphics.setModelMatrix(modelMatrix)
         graphics.setViewMatrix(viewMatrix)
         graphics.setProjectionMatrix(orthoMatrix)
