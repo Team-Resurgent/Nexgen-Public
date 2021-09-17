@@ -8,9 +8,14 @@ local sysinfo = require("scripts:sysinfo")
 --
 --************************************************************************************************
 local backgroundTextureId = graphics.loadTexture("assets:images\\backgrounds\\background720.png")
-
 local backgroundWidth, backgroundHeight = graphics.getTextureSize(backgroundTextureId)
-background = {x = 0, y = 0, speed = 150}
+background = {x = 0, y = 0}
+
+--Set Variabled for Parallax Background Scrolling
+VerticalUp = 0
+VerticalDown = 1
+HorizontalLeft = 2
+HorizontalRight = 3
 
 --************************************************************************************************
 --
@@ -190,6 +195,48 @@ function DisplayText(
   graphics.setColorTint(color4.new(255 / 255, 255 / 255, 255 / 255, 1.0)) -- Default colour back to white
 end
 
+function ParallaxScrolling(parallaxDirection, parallaxSpeed, dt)
+  if parallaxDirection == VerticalUp then
+    -- Parallax background scrolling Vertical Up
+    background.y = background.y + parallaxSpeed * dt
+    if background.y > 0 then
+      background.y = background.y - renderGetHeight()
+    end
+    direction = vector3.new(background.x, background.y + renderGetHeight(), 0.0)
+  elseif parallaxDirection == VerticalDown then
+    -- Parallax background scrolling Vertical Down
+    background.y = background.y - parallaxSpeed * dt
+    if background.y < 0 then
+      background.y = background.y + renderGetHeight()
+    end
+    direction = vector3.new(background.x, background.y - renderGetHeight(), 0.0)
+  elseif parallaxDirection == HorizontalRight then
+    -- Parallax background scrolling Horizontal Right
+    background.x = background.x + parallaxSpeed * dt
+    if background.x < 0 then
+      background.x = background.x - renderGetWidth()
+    end
+    direction = vector3.new(background.x - renderGetWidth(), background.y, 0.0)
+  elseif parallaxDirection == HorizontalLeft then
+    -- Parallax background scrolling Horizontal Left
+    background.x = background.x - parallaxSpeed * dt
+    if background.x < 0 then
+      background.x = background.x + renderGetWidth()
+    end
+    direction = vector3.new(background.x - renderGetWidth(), background.y, 0.0)
+  end
+
+  graphics.drawNinePatch(
+    backgroundTextureId,
+    vector3.new(background.x, background.y, 0.0),
+    renderGetWidth(),
+    renderGetHeight(),
+    0.0,
+    0.0
+  )
+  graphics.drawNinePatch(backgroundTextureId, direction, renderGetWidth(), renderGetHeight(), 0.0, 0.0)
+end
+
 graphics.setColorTint(color4.new(255 / 255, 255 / 255, 255 / 255, 1.0)) -- Default colour back to white
 
 function onRender(dt)
@@ -199,62 +246,19 @@ function onRender(dt)
   local modelMatrix = matrix4.new()
   local viewMatrix = matrix4.lookAt(eye, target, up)
   local orthoMatrix = matrix4.orthoOffCenter(0, graphics.getWidth(), 0, graphics.getHeight(), 1, 100)
-
-  graphics.clear(true, 1.0, true, 0, true, color4.new(0.227, 0.227, 0.227, 1.0))
-
-  -- Parallax background scrolling Vertical
-  background.y = background.y - background.speed * dt
-  if background.y < 0 then
-    background.y = background.y + renderGetHeight()
-  end
-  graphics.drawNinePatch(
-    backgroundTextureId,
-    vector3.new(background.x, background.y, 0.0),
-    renderGetWidth(),
-    renderGetHeight(),
-    0.0,
-    0.0
-  )
-  graphics.drawNinePatch(
-    backgroundTextureId,
-    vector3.new(background.x, background.y - renderGetHeight(), 0.0),
-    renderGetWidth(),
-    renderGetHeight(),
-    0.0,
-    0.0
-  )
-
-  -- -- Parallax background scrolling Horizontal
-  -- background.x = background.x - background.speed * dt
-  -- if background.x < 0 then
-    -- background.x = background.x + renderGetWidth()
-  -- end
-  -- graphics.drawNinePatch(
-    -- backgroundTextureId,
-    -- vector3.new(background.x, background.y, 0.0),
-    -- renderGetWidth(),
-    -- renderGetHeight(),
-    -- 0.0,
-    -- 0.0
-  -- )
-  -- graphics.drawNinePatch(
-    -- backgroundTextureId,
-    -- vector3.new(background.x - renderGetWidth(), background.y, 0.0),
-    -- renderGetWidth(),
-    -- renderGetHeight(),
-    -- 0.0,
-    -- 0.0
-  -- )
-
-
-  graphics.disableDepthTest()
+  
   graphics.setModelMatrix(modelMatrix)
   graphics.setViewMatrix(viewMatrix)
   graphics.setProjectionMatrix(orthoMatrix)
+  
+  graphics.disableDepthTest()
+  graphics.clear(true, 1.0, true, 0, true, color4.new(0.227, 0.227, 0.227, 1.0))
+
+  -- Enable Parallax Background, Set scroll Direction & Speed
+
+  ParallaxScrolling(VerticalDown, 200, dt)
 
   -- Message
-
-  --fontId = graphics.loadFont("assets:fonts\\Mobile_79px.fnt")
 
   --DisplayText Function Options
   --How Far To Move Letters Up
@@ -267,8 +271,6 @@ function onRender(dt)
   --Set Colour Palette, Other Colour Paletts Must Be Added To The Function
 
   DisplayText(5, -5, 100, "Press Start To Attack!", "Forward", "Cycle", 250, 1, dt)
-
-  --fontId = graphics.loadFont("assets:fonts\\Mobile_39px.fnt")
 
   if (controller.isButtonHeld(0, controller.Button["DpadLeft"])) then
     PlaneLMRTrack = 1
