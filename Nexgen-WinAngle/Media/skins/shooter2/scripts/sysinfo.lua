@@ -12,7 +12,7 @@ TextColour2Default = color4.new(1.0, 1.0, 1.0, 1.0)
 -- System Memory
 --************************************************************************************************ 
 
-function sysinfo.getMemory(FontSelect, MemPositionX, MemPositionY, dt)
+function sysinfo.getMemory(FontSelect, MemPositionX, MemPositionY, MemSpacing, dt)
 
 		local totalPhysical = systemGetTotalPhysicalMemory()
 		local physicalTextPosition = vector3.new(MemPositionX, renderGetHeight() - MemPositionY, 0)
@@ -29,7 +29,7 @@ function sysinfo.getMemory(FontSelect, MemPositionX, MemPositionY, dt)
 		graphics.setColorTint(TextColour1Default)
 		
 		local freePhysical = systemGetFreePhysicalMemory()
-        local physicalFreeTextPosition = vector3.new(MemPositionX, renderGetHeight() - (MemPositionY + fh - 15), 0)
+        local physicalFreeTextPosition = vector3.new(MemPositionX, renderGetHeight() - (MemPositionY + fh - MemSpacing), 0)
 		graphics.setColorTint(TextColour1)
 		local fw, fh = graphics.measureFont(FontSelect, "Free Physical Memory: ")
 		local fpsTextSize = vector3.new(fw, 0, 0)		
@@ -41,7 +41,7 @@ function sysinfo.getMemory(FontSelect, MemPositionX, MemPositionY, dt)
 		--graphics.drawFont(FontSelect, physicalFreeTextPosition + fpsTextSize, maths.toInteger(freePhysical) .." B")ePhysical) .." B" )
 		graphics.setColorTint(TextColour1Default)  	
 		
-		local physicalUsedTextPosition = vector3.new(MemPositionX, renderGetHeight() - (MemPositionY + (fh * 2) - 30), 0)
+		local physicalUsedTextPosition = vector3.new(MemPositionX, renderGetHeight() - (MemPositionY + (fh * 2) - (MemSpacing * 2)), 0)
 		graphics.setColorTint(TextColour1)
 		local fw, fh = graphics.measureFont(FontSelect, "Used Physical Memory: ")
 		local fpsTextSize = vector3.new(fw, 0, 0)		
@@ -54,7 +54,7 @@ function sysinfo.getMemory(FontSelect, MemPositionX, MemPositionY, dt)
 		graphics.setColorTint(TextColour1Default)  
 
 		local totalVirtual = systemGetTotalVirtualMemory()
-		local vitualTextPosition = vector3.new(MemPositionX, renderGetHeight() - (MemPositionY + (fh * 3) - 45), 0)
+		local vitualTextPosition = vector3.new(MemPositionX, renderGetHeight() - (MemPositionY + (fh * 3) - (MemSpacing * 3)), 0)
 		graphics.setColorTint(TextColour1)
 		local fw, fh = graphics.measureFont(FontSelect, "Virtual Memory: ")
 		local fpsTextSize = vector3.new(fw, 0, 0)		
@@ -67,7 +67,7 @@ function sysinfo.getMemory(FontSelect, MemPositionX, MemPositionY, dt)
 		graphics.setColorTint(TextColour1Default)  
 		
 		local freeVirtual = systemGetFreeVirtualMemory()
-        local virtualFreeTextPosition = vector3.new(MemPositionX, renderGetHeight() - (MemPositionY + (fh * 4) - 60), 0)
+        local virtualFreeTextPosition = vector3.new(MemPositionX, renderGetHeight() - (MemPositionY + (fh * 4) - (MemSpacing * 4)), 0)
 		graphics.setColorTint(TextColour1)
 		local fw, fh = graphics.measureFont(FontSelect, "Free Virtual Memory: ")
 		local fpsTextSize = vector3.new(fw, 0, 0)		
@@ -79,7 +79,7 @@ function sysinfo.getMemory(FontSelect, MemPositionX, MemPositionY, dt)
 		--graphics.drawFont(FontSelect, virtualFreeTextPosition + fpsTextSize, maths.toInteger(freeVirtual) .." B")
 		graphics.setColorTint(TextColour1Default)  
 		
-		local virtualUsedTextPosition = vector3.new(MemPositionX, renderGetHeight() - (MemPositionY + (fh * 5) - 75), 0)
+		local virtualUsedTextPosition = vector3.new(MemPositionX, renderGetHeight() - (MemPositionY + (fh * 5) - (MemSpacing * 5)), 0)
 		graphics.setColorTint(TextColour1)
 		local fw, fh = graphics.measureFont(FontSelect, "Used Virtual Memory: ")
 		local fpsTextSize = vector3.new(fw, 0, 0)		
@@ -90,12 +90,6 @@ function sysinfo.getMemory(FontSelect, MemPositionX, MemPositionY, dt)
 		--graphics.drawFont(FontSelect, virtualUsedTextPosition + fpsTextSize, maths.toInteger(totalVirtual / 1024) - maths.toInteger(freeVirtual / 1024)  .." KB")
 		--graphics.drawFont(FontSelect, virtualUsedTextPosition + fpsTextSize, maths.toInteger(totalVirtual) - maths.toInteger(freeVirtual) .." B")
 		graphics.setColorTint(TextColour1Default)  
-
-		
-
-
-
-
 end
 
 -------------------------------------------------------------------------------------------------- 
