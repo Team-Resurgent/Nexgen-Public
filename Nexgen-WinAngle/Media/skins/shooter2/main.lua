@@ -20,29 +20,17 @@ HorizontalRight = 3
 --************************************************************************************************
 --
 --************************************************************************************************
-fontId2 = graphics.loadFont("assets:fonts\\Mobile_39px.fnt")
---fontId = graphics.loadFont("assets:fonts\\Mobile_59px.fnt")
-fontId = graphics.loadFont("assets:fonts\\Mobile_79px.fnt")
+fontId1 = graphics.loadFont("assets:fonts\\Mobile_39px.fnt")
+fontId2 = graphics.loadFont("assets:fonts\\Mobile_59px.fnt")
+fontId3 = graphics.loadFont("assets:fonts\\Mobile_79px.fnt")
 
 --************************************************************************************************
 --
 --************************************************************************************************
-local PlayerLeftImg, PlayerLeftImgWidth, PlayerLeftImgHeight =
-  graphics.loadTexture("assets:images\\game\\planeleft.png"),
-  118,
-  84
-local PlayerMiddleImg, PlayerMiddleImgWidth, PlayerMiddleImgHeight =
-  graphics.loadTexture("assets:images\\game\\planemiddle.png"),
-  118,
-  84
-local PlayerRightImg, PlayerRightImgWidth, PlayerRightImgHeight =
-  graphics.loadTexture("assets:images\\game\\planeright.png"),
-  118,
-  84
-local PlayerBulletImg, PlayerBulletImgWidth, PlayerBulletImgHeight =
-  graphics.loadTexture("assets:images\\game\\playerbullet.png"),
-  10,
-  26
+local PlayerLeftImg, PlayerLeftImgWidth, PlayerLeftImgHeight = graphics.loadTexture("assets:images\\game\\planeleft.png"), 118, 84
+local PlayerMiddleImg, PlayerMiddleImgWidth, PlayerMiddleImgHeight = graphics.loadTexture("assets:images\\game\\planemiddle.png"), 118, 84
+local PlayerRightImg, PlayerRightImgWidth, PlayerRightImgHeight = graphics.loadTexture("assets:images\\game\\planeright.png"), 118, 84
+local PlayerBulletImg, PlayerBulletImgWidth, PlayerBulletImgHeight = graphics.loadTexture("assets:images\\game\\playerbullet.png"), 10, 26
 
 --************************************************************************************************
 --
@@ -69,16 +57,7 @@ DisplayTextPhraseCheck, DisplayTextPaletteCheck = " ", 0
 --************************************************************************************************
 --
 --************************************************************************************************
-function DisplayText(
-  DisplayTextHigh,
-  DisplayTextLow,
-  DisplayTextSpeed,
-  DisplayTextPhrase,
-  DisplayTextDirection,
-  DisplayTextGlow,
-  DisplayTextColourCycleSpeed,
-  DisplayTextPalette,
-  dt)
+function DisplayText(DisplayTextHigh, DisplayTextLow, DisplayTextSpeed, DisplayTextPhrase, DisplayTextDirection, DisplayTextGlow, DisplayTextColourCycleSpeed,  DisplayTextPalette, dt)
   if DisplayTextPalette == 1 then
     DisplayTextColour = {}
     DisplayTextColour[0] = color4.new(0 / 255, 0 / 255, 0 / 255, 1.0) -- Black (Must Always Be Here)
@@ -99,7 +78,7 @@ function DisplayText(
     DisplayTextPhraseCheck = DisplayTextPhrase
     DisplayTextPaletteCheck = DisplayTextPalette
     DisplayTextLength = string.len(DisplayTextPhrase)
-    DisplayTextWidth = graphics.measureFont(fontId, DisplayTextPhrase) - DisplayTextLength
+    DisplayTextWidth = graphics.measureFont(fontId3, DisplayTextPhrase) - DisplayTextLength
     DisplayTextPositionX, DisplayTextPositionY = (renderGetWidth() / 2) - (DisplayTextWidth / 2), renderGetHeight() / 2
     DisplayTextLetterA, DisplayTextLetterB, DisplayTextLetterC, DisplayTextLetterD = {}, {}, {}, {}
     if DisplayTextLength % 2 == 1 or #DisplayTextColour % 2 == 1 then
@@ -117,8 +96,8 @@ function DisplayText(
     for DisplayTextTable = 1, DisplayTextLength do
       DisplayTextLetterA[DisplayTextTable] = string.sub(DisplayTextPhrase, DisplayTextTable, DisplayTextTable)
       DisplayTextLetterB[DisplayTextTable], DisplayTextLetterC[DisplayTextTable] =
-        DisplayTextHigh,
-        math.random(DisplayTextLow, DisplayTextHigh)
+      DisplayTextHigh,
+      math.random(DisplayTextLow, DisplayTextHigh)
     end
 
     Count = {1, 1, 1}
@@ -159,16 +138,8 @@ function DisplayText(
   DisplayTextPostion = 0
   for DisplayTextRender = 1, DisplayTextLength do
     graphics.setColorTint(DisplayTextColour[DisplayTextLetterD[DisplayTextRender + DisplayTextColourAnimation]])
-    graphics.drawFont(
-      fontId,
-      vector3.new(
-        DisplayTextPositionX + DisplayTextPostion,
-        DisplayTextPositionY + DisplayTextLetterC[DisplayTextRender],
-        0
-      ),
-      DisplayTextLetterA[DisplayTextRender]
-    )
-    DisplayTextPostion = DisplayTextPostion + (graphics.measureFont(fontId, DisplayTextLetterA[DisplayTextRender]) / 2)
+    graphics.drawFont(fontId3, vector3.new(DisplayTextPositionX + DisplayTextPostion, DisplayTextPositionY + DisplayTextLetterC[DisplayTextRender], 0), DisplayTextLetterA[DisplayTextRender])
+    DisplayTextPostion = DisplayTextPostion + (graphics.measureFont(fontId3, DisplayTextLetterA[DisplayTextRender]) / 2)
   end
 
   if DisplayTextDirection == "Backward" and DisplayTextColourSpeed == 0 then
@@ -210,30 +181,23 @@ function ParallaxScrolling(parallaxDirection, parallaxSpeed, dt)
       background.y = background.y + renderGetHeight()
     end
     direction = vector3.new(background.x, background.y - renderGetHeight(), 0.0)
-  elseif parallaxDirection == HorizontalRight then
-    -- Parallax background scrolling Horizontal Right
-    background.x = background.x + parallaxSpeed * dt
-    if background.x < 0 then
-      background.x = background.x - renderGetWidth()
-    end
-    direction = vector3.new(background.x - renderGetWidth(), background.y, 0.0)
   elseif parallaxDirection == HorizontalLeft then
     -- Parallax background scrolling Horizontal Left
     background.x = background.x - parallaxSpeed * dt
     if background.x < 0 then
       background.x = background.x + renderGetWidth()
     end
-    direction = vector3.new(background.x - renderGetWidth(), background.y, 0.0)
+    direction = vector3.new(background.x - renderGetWidth(), background.y, 0.0)	
+  elseif parallaxDirection == HorizontalRight then
+    -- Parallax background scrolling Horizontal Right
+    background.x = background.x + parallaxSpeed * dt
+    if background.x < 0 then
+      background.x = background.x - renderGetWidth()
+    end
+    direction = vector3.new(background.x - renderGetWidth(), background.y, 0.0) 
   end
 
-  graphics.drawNinePatch(
-    backgroundTextureId,
-    vector3.new(background.x, background.y, 0.0),
-    renderGetWidth(),
-    renderGetHeight(),
-    0.0,
-    0.0
-  )
+  graphics.drawNinePatch(backgroundTextureId, vector3.new(background.x, background.y, 0.0), renderGetWidth(), renderGetHeight(), 0.0, 0.0)
   graphics.drawNinePatch(backgroundTextureId, direction, renderGetWidth(), renderGetHeight(), 0.0, 0.0)
 end
 
@@ -257,7 +221,7 @@ function onRender(dt)
   -- Enable Parallax Background, Set scroll Direction & Speed
 
   ParallaxScrolling(VerticalDown, 200, dt)
-
+  
   -- Message
 
   --DisplayText Function Options
@@ -337,60 +301,25 @@ function onRender(dt)
   end
 
   for i, bullet in ipairs(PlayerBulletsL) do
-    graphics.drawNinePatch(
-      PlayerBulletImg,
-      vector3.new(bullet.x, bullet.y, 0.0),
-      PlayerBulletImgWidth,
-      PlayerBulletImgHeight,
-      0.0,
-      0.0
-    )
+    graphics.drawNinePatch(PlayerBulletImg, vector3.new(bullet.x, bullet.y, 0.0), PlayerBulletImgWidth, PlayerBulletImgHeight, 0.0, 0.0)
   end
 
   for i, bullet in ipairs(PlayerBulletsR) do
-    graphics.drawNinePatch(
-      PlayerBulletImg,
-      vector3.new(bullet.x, bullet.y, 0.0),
-      PlayerBulletImgWidth,
-      PlayerBulletImgHeight,
-      0.0,
-      0.0
-    )
+    graphics.drawNinePatch(PlayerBulletImg, vector3.new(bullet.x, bullet.y, 0.0), PlayerBulletImgWidth, PlayerBulletImgHeight, 0.0, 0.0)
   end
 
   if PlaneLMRTrack == 1 then
-    graphics.drawNinePatch(
-      PlayerLeftImg,
-      vector3.new(Player.x, Player.y, 0.0),
-      PlayerMiddleImgWidth,
-      PlayerMiddleImgHeight,
-      0.0,
-      0.0
-    )
+    graphics.drawNinePatch(PlayerLeftImg, vector3.new(Player.x, Player.y, 0.0), PlayerMiddleImgWidth, PlayerMiddleImgHeight, 0.0, 0.0)
     PlaneLMRTrack = 2
   elseif PlaneLMRTrack == 2 then
-    graphics.drawNinePatch(
-      PlayerMiddleImg,
-      vector3.new(Player.x, Player.y, 0.0),
-      PlayerMiddleImgWidth,
-      PlayerMiddleImgHeight,
-      0.0,
-      0.0
-    )
+    graphics.drawNinePatch(PlayerMiddleImg, vector3.new(Player.x, Player.y, 0.0), PlayerMiddleImgWidth, PlayerMiddleImgHeight, 0.0, 0.0)
   elseif PlaneLMRTrack == 3 then
-    graphics.drawNinePatch(
-      PlayerRightImg,
-      vector3.new(Player.x, Player.y, 0.0),
-      PlayerMiddleImgWidth,
-      PlayerMiddleImgHeight,
-      0.0,
-      0.0
-    )
+    graphics.drawNinePatch(PlayerRightImg, vector3.new(Player.x, Player.y, 0.0), PlayerMiddleImgWidth, PlayerMiddleImgHeight, 0.0, 0.0)
     PlaneLMRTrack = 2
   end
 
-  sysinfo.getFps(dt)
-  --sysinfo.getMemory(dt)
+  sysinfo.getFps(fontId1, 180, 20, dt)
+  sysinfo.getMemory(fontId1, 20, 20, dt)
   graphics.endScene()
   graphics.swapBuffers()
 end
