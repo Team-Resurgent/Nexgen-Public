@@ -126,9 +126,9 @@ fpsCount = fpsCount + 1
 		local fw, fh = graphics.measureFont(fontId, "FPS: ")
 		local fpsTextSize = vector3.new(fw, 0, 0)
 
-		graphics.drawFont(fontId, fpsTextPosition, "FPS: ")
+		graphics.drawFont(fontId2, fpsTextPosition, "FPS: ")
 		graphics.setColorTint(TextColour2) 
-		graphics.drawFont(fontId, fpsTextPosition + fpsTextSize, tostring(fps))
+		graphics.drawFont(fontId2, fpsTextPosition + fpsTextSize, tostring(fps))
 		graphics.setColorTint(TextColour1Default) -- restore to default 
 		
 end
