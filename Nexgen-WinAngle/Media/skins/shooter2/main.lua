@@ -254,8 +254,10 @@ function onRender(dt)
   graphics.disableDepthTest()
   graphics.clear(true, 1.0, true, 0, true, color4.new(0.227, 0.227, 0.227, 1.0))
 
-  -- Enable Parallax Background, Set scroll Direction & Speed
-
+  -- Parallax Background
+  -- Set Scroll Direction (VerticalUp, VerticalDown,  HorizontalLeft, HorizontalRight)
+  -- Speed
+  
   ParallaxScrolling(VerticalDown, 200, dt)
 
   -- Message
