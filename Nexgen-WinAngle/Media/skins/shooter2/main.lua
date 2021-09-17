@@ -221,7 +221,7 @@ function onRender(dt)
   -- Parallax Background
   -- Set Scroll Direction (VerticalUp, VerticalDown,  HorizontalLeft, HorizontalRight)
   -- Speed
-  
+
   ParallaxScrolling(VerticalDown, 200, dt)
   
   -- Message
@@ -321,7 +321,7 @@ function onRender(dt)
   end
 
   sysinfo.getFps(fontId1, 180, 20, dt)
-  sysinfo.getMemory(fontId1, 20, 20, dt)
+  --sysinfo.getMemory(fontId1, 20, 20, dt)
   graphics.endScene()
   graphics.swapBuffers()
 end
