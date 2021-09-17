@@ -7,9 +7,15 @@ local sysinfo = require("scripts:sysinfo")
 --************************************************************************************************
 --
 --************************************************************************************************
-local backgroundTextureId = graphics.loadTexture("assets:images\\backgrounds\\background720.png")
-local backgroundWidth, backgroundHeight = graphics.getTextureSize(backgroundTextureId)
-background = {x = 0, y = 0}
+local backgroundTextureId1 = graphics.loadTexture("assets:images\\backgrounds\\layers\\far-buildings.png")
+local backgroundTextureId2 = graphics.loadTexture("assets:images\\backgrounds\\layers\\back-buildings.png")
+local backgroundTextureId3 = graphics.loadTexture("assets:images\\backgrounds\\layers\\foreground.png")
+--local backgroundWidth, backgroundHeight = graphics.getTextureSize(backgroundTextureId)
+
+-- This is the number of backgrounds
+Layer1 = {x = 0, y = 0}
+Layer2 = {x = 0, y = 0}
+Layer3 = {x = 0, y = 0}
 
 --Set Variabled for Parallax Background Scrolling
 VerticalUp = 0
@@ -166,7 +172,8 @@ function DisplayText(DisplayTextHigh, DisplayTextLow, DisplayTextSpeed, DisplayT
   graphics.setColorTint(color4.new(255 / 255, 255 / 255, 255 / 255, 1.0)) -- Default colour back to white
 end
 
-function ParallaxScrolling(parallaxDirection, parallaxSpeed, dt)
+
+function ParallaxScrolling(layerID, background , parallaxDirection, parallaxSpeed, dt)
   if parallaxDirection == VerticalUp then
     -- Parallax background scrolling Vertical Up
     background.y = background.y + parallaxSpeed * dt
@@ -197,9 +204,10 @@ function ParallaxScrolling(parallaxDirection, parallaxSpeed, dt)
     direction = vector3.new(background.x + renderGetWidth(), background.y, 0.0) 
   end
 
-  graphics.drawNinePatch(backgroundTextureId, vector3.new(background.x, background.y, 0.0), renderGetWidth(), renderGetHeight(), 0.0, 0.0)
-  graphics.drawNinePatch(backgroundTextureId, direction, renderGetWidth(), renderGetHeight(), 0.0, 0.0)
+  graphics.drawNinePatch(layerID, vector3.new(background.x, background.y, 0.0), renderGetWidth(), renderGetHeight(), 0.0, 0.0)
+  graphics.drawNinePatch(layerID, direction, renderGetWidth(), renderGetHeight(), 0.0, 0.0)
 end
+
 
 graphics.setColorTint(color4.new(255 / 255, 255 / 255, 255 / 255, 1.0)) -- Default colour back to white
 
@@ -222,7 +230,9 @@ function onRender(dt)
   -- Set Scroll Direction (VerticalUp, VerticalDown,  HorizontalLeft, HorizontalRight)
   -- Speed
 
-  ParallaxScrolling(VerticalDown, 100, dt)
+  ParallaxScrolling(backgroundTextureId1,Layer1,HorizontalLeft, 20, dt)
+  ParallaxScrolling(backgroundTextureId2,Layer2,HorizontalLeft, 40, dt)
+  ParallaxScrolling(backgroundTextureId3,Layer3,HorizontalLeft, 60, dt)
   
   -- Message
 
@@ -236,7 +246,7 @@ function onRender(dt)
   --Set Speed Between Colour Change
   --Set Colour Palette, Other Colour Paletts Must Be Added To The Function
 
-  DisplayText(5, -5, 100, "Press Start To Attack!", "Forward", "Cycle", 250, 1, dt)
+ --DisplayText(5, -5, 100, "Press Start To Attack!", "Forward", "Cycle", 250, 1, dt)
 
   if (controller.isButtonHeld(0, controller.Button["DpadLeft"])) then
     PlaneLMRTrack = 1
