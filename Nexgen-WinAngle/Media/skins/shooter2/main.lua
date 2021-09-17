@@ -7,15 +7,11 @@ local sysinfo = require("scripts:sysinfo")
 --************************************************************************************************
 --
 --************************************************************************************************
-local backgroundTextureId1 = graphics.loadTexture("assets:images\\backgrounds\\layers\\far-buildings.png")
-local backgroundTextureId2 = graphics.loadTexture("assets:images\\backgrounds\\layers\\back-buildings.png")
-local backgroundTextureId3 = graphics.loadTexture("assets:images\\backgrounds\\layers\\foreground.png")
+local backgroundTextureId1 = graphics.loadTexture("assets:images\\backgrounds\\background720.png")
 --local backgroundWidth, backgroundHeight = graphics.getTextureSize(backgroundTextureId)
 
 -- This is the number of backgrounds
 Layer1 = {x = 0, y = 0}
-Layer2 = {x = 0, y = 0}
-Layer3 = {x = 0, y = 0}
 
 --Set Variabled for Parallax Background Scrolling
 VerticalUp = 0
@@ -230,9 +226,7 @@ function onRender(dt)
   -- Set Scroll Direction (VerticalUp, VerticalDown,  HorizontalLeft, HorizontalRight)
   -- Speed
 
-  ParallaxScrolling(backgroundTextureId1,Layer1,HorizontalLeft, 20, dt)
-  ParallaxScrolling(backgroundTextureId2,Layer2,HorizontalLeft, 40, dt)
-  ParallaxScrolling(backgroundTextureId3,Layer3,HorizontalLeft, 60, dt)
+  ParallaxScrolling(backgroundTextureId1,Layer1,VerticalDown, 100, dt)
   
   -- Message
 
@@ -246,7 +240,7 @@ function onRender(dt)
   --Set Speed Between Colour Change
   --Set Colour Palette, Other Colour Paletts Must Be Added To The Function
 
- --DisplayText(5, -5, 100, "Press Start To Attack!", "Forward", "Cycle", 250, 1, dt)
+ DisplayText(5, -5, 100, "Press Start To Attack!", "Forward", "Cycle", 250, 1, dt)
 
   if (controller.isButtonHeld(0, controller.Button["DpadLeft"])) then
     PlaneLMRTrack = 1
