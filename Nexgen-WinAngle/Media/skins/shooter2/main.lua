@@ -191,10 +191,10 @@ function ParallaxScrolling(parallaxDirection, parallaxSpeed, dt)
   elseif parallaxDirection == HorizontalRight then
     -- Parallax background scrolling Horizontal Right
     background.x = background.x + parallaxSpeed * dt
-    if background.x < 0 then
+    if background.x > 0 then
       background.x = background.x - renderGetWidth()
     end
-    direction = vector3.new(background.x - renderGetWidth(), background.y, 0.0) 
+    direction = vector3.new(background.x + renderGetWidth(), background.y, 0.0) 
   end
 
   graphics.drawNinePatch(backgroundTextureId, vector3.new(background.x, background.y, 0.0), renderGetWidth(), renderGetHeight(), 0.0, 0.0)
