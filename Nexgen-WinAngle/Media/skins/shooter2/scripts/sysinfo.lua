@@ -104,7 +104,7 @@ fpsInterval = 0
 
 
 
-function sysinfo.getFps(FontSelect, FPSPositionX, FPSPositionY, dt)
+function sysinfo.getFps(FontSelect, FPSPositionX, FPSPositionY, FPSSpacing, dt)
 
 fpsCount = fpsCount + 1
 		fpsInterval = fpsInterval + dt
@@ -119,7 +119,7 @@ fpsCount = fpsCount + 1
 		graphics.setColorTint(TextColour1) -- tint green
 
 		local fw, fh = graphics.measureFont(FontSelect, "FPS:")
-		local fpsTextSize = vector3.new(fw, 0, 0)
+		local fpsTextSize = vector3.new(fw - FPSSpacing, 0, 0)
 
 		graphics.drawFont(FontSelect, fpsTextPosition, "FPS:")
 		graphics.setColorTint(TextColour2) 

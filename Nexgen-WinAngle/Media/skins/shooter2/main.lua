@@ -320,7 +320,7 @@ function onRender(dt)
     PlaneLMRTrack = 2
   end
 
-  sysinfo.getFps(fontId1, 180, 20, dt)
+  sysinfo.getFps(fontId1, 165, 20, 15, dt)
   --sysinfo.getMemory(fontId1, 20, 20, 10, dt)
   graphics.endScene()
   graphics.swapBuffers()
