@@ -222,7 +222,7 @@ function onRender(dt)
   -- Set Scroll Direction (VerticalUp, VerticalDown,  HorizontalLeft, HorizontalRight)
   -- Speed
 
-  ParallaxScrolling(VerticalDown, 200, dt)
+  ParallaxScrolling(VerticalDown, 100, dt)
   
   -- Message
 
