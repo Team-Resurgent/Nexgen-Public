@@ -7,9 +7,19 @@ local sysinfo = require("scripts:sysinfo")
 --************************************************************************************************
 --
 --************************************************************************************************
-local backgroundTextureId1 = graphics.loadTexture("assets:images\\backgrounds\\layers\\far-buildings.png")
-local backgroundTextureId2 = graphics.loadTexture("assets:images\\backgrounds\\layers\\back-buildings.png")
-local backgroundTextureId3 = graphics.loadTexture("assets:images\\backgrounds\\layers\\foreground.png")
+
+  --local backgroundTextureId1 = graphics.loadTexture("assets:images\\backgrounds\\layers480\\far-buildings.png")
+  --local backgroundTextureId2 = graphics.loadTexture("assets:images\\backgrounds\\layers480\\back-buildings.png")
+  --local backgroundTextureId3 = graphics.loadTexture("assets:images\\backgrounds\\layers480\\foreground.png")
+
+  local backgroundTextureId1 = graphics.loadTexture("assets:images\\backgrounds\\layers720\\far-buildings.png")
+  local backgroundTextureId2 = graphics.loadTexture("assets:images\\backgrounds\\layers720\\back-buildings.png")
+  local backgroundTextureId3 = graphics.loadTexture("assets:images\\backgrounds\\layers720\\foreground.png")
+
+  --local backgroundTextureId1 = graphics.loadTexture("assets:images\\backgrounds\\layers1080\\far-buildings.png")
+  --local backgroundTextureId2 = graphics.loadTexture("assets:images\\backgrounds\\layers1080\\back-buildings.png")
+  --local backgroundTextureId3 = graphics.loadTexture("assets:images\\backgrounds\\layers1080\\foreground.png")
+
 --local backgroundWidth, backgroundHeight = graphics.getTextureSize(backgroundTextureId)
 
 -- This is the number of backgrounds
