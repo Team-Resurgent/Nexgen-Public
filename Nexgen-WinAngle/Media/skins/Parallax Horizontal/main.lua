@@ -7,19 +7,20 @@ local sysinfo = require("scripts:sysinfo")
 --************************************************************************************************
 --
 --************************************************************************************************
-
-  --local backgroundTextureId1 = graphics.loadTexture("assets:images\\backgrounds\\layers480\\far-buildings.png")
-  --local backgroundTextureId2 = graphics.loadTexture("assets:images\\backgrounds\\layers480\\back-buildings.png")
-  --local backgroundTextureId3 = graphics.loadTexture("assets:images\\backgrounds\\layers480\\foreground.png")
-
-  local backgroundTextureId1 = graphics.loadTexture("assets:images\\backgrounds\\layers720\\far-buildings.png")
-  local backgroundTextureId2 = graphics.loadTexture("assets:images\\backgrounds\\layers720\\back-buildings.png")
-  local backgroundTextureId3 = graphics.loadTexture("assets:images\\backgrounds\\layers720\\foreground.png")
-
-  --local backgroundTextureId1 = graphics.loadTexture("assets:images\\backgrounds\\layers1080\\far-buildings.png")
-  --local backgroundTextureId2 = graphics.loadTexture("assets:images\\backgrounds\\layers1080\\back-buildings.png")
-  --local backgroundTextureId3 = graphics.loadTexture("assets:images\\backgrounds\\layers1080\\foreground.png")
-
+print (graphics.getHeight())
+if graphics.getHeight() > 440 and graphics.getHeight() < 481 then
+  backgroundTextureId1 = graphics.loadTexture("assets:images\\backgrounds\\layers480\\far-buildings.png")
+  backgroundTextureId2 = graphics.loadTexture("assets:images\\backgrounds\\layers480\\back-buildings.png")
+  backgroundTextureId3 = graphics.loadTexture("assets:images\\backgrounds\\layers480\\foreground.png")
+elseif graphics.getHeight() > 680 and graphics.getHeight() < 721 then
+  backgroundTextureId1 = graphics.loadTexture("assets:images\\backgrounds\\layers720\\far-buildings.png")
+  backgroundTextureId2 = graphics.loadTexture("assets:images\\backgrounds\\layers720\\back-buildings.png")
+  backgroundTextureId3 = graphics.loadTexture("assets:images\\backgrounds\\layers720\\foreground.png")
+elseif graphics.getHeight() > 1400 and graphics.getHeight() < 1081 then
+  backgroundTextureId1 = graphics.loadTexture("assets:images\\backgrounds\\layers1080\\far-buildings.png")
+  backgroundTextureId2 = graphics.loadTexture("assets:images\\backgrounds\\layers1080\\back-buildings.png")
+  backgroundTextureId3 = graphics.loadTexture("assets:images\\backgrounds\\layers1080\\foreground.png")
+end
 --local backgroundWidth, backgroundHeight = graphics.getTextureSize(backgroundTextureId)
 
 -- This is the number of backgrounds
