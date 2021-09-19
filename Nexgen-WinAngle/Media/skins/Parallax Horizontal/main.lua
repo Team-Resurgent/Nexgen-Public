@@ -241,9 +241,9 @@ function onRender(dt)
   -- Set Scroll Direction (VerticalUp, VerticalDown,  HorizontalLeft, HorizontalRight)
   -- Speed
 
-  ParallaxScrolling(backgroundTextureId1,Layer1,HorizontalLeft, 20, dt)
-  ParallaxScrolling(backgroundTextureId2,Layer2,HorizontalLeft, 40, dt)
-  ParallaxScrolling(backgroundTextureId3,Layer3,HorizontalLeft, 60, dt)
+  ParallaxScrolling(backgroundTextureId1,Layer1,HorizontalLeft, 0, dt)
+  ParallaxScrolling(backgroundTextureId2,Layer2,HorizontalLeft, 0, dt)
+  ParallaxScrolling(backgroundTextureId3,Layer3,HorizontalLeft, 0, dt)
   
   -- Message
 
