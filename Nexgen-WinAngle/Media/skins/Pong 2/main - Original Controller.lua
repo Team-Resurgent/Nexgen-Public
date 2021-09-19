@@ -23,13 +23,13 @@ local bouncingText = require("scripts:bouncingText")
 --************************************************************************************************
 
 local player1Img = graphics.loadTexture("assets:images\\paddles\\1.png")
-player1ImgWidth, player1ImgHeight = graphics.getTextureSize(player1Img)
+local player1ImgWidth, player1ImgHeight = graphics.getTextureSize(player1Img)
 
 local player2Img = graphics.loadTexture("assets:images\\paddles\\2.png")
-player2ImgWidth, player2ImgHeight = graphics.getTextureSize(player2Img)
+local player2ImgWidth, player2ImgHeight = graphics.getTextureSize(player2Img)
 
 local ballImg = graphics.loadTexture("assets:images\\balls\\ball.png")
-ballImgWidth, ballImgHeight = graphics.getTextureSize(ballImg)
+local ballImgWidth, ballImgHeight = graphics.getTextureSize(ballImg)
 
 --************************************************************************************************
 -- Define & Load Fonts.
@@ -62,14 +62,14 @@ local scores = sound.load("audio:sounds\\score.wav")
 -- Create tables & Store X & Y Positions Movement Speed & Score .
 --************************************************************************************************
 
-player1 = {
+local player1 = {
       x = 0 + player1ImgWidth,
       y = renderGetHeight() - player1ImgHeight,
       speed = 500,
       score = 0
 }
 
-player2 = {
+local player2 = {
       x = renderGetWidth() - player2ImgWidth * 2,
       y = renderGetHeight() - player2ImgHeight,
       speed = 500,
@@ -93,7 +93,6 @@ end
 
 ballReset()
 
-local autoAI = require("scripts:AI")
 
 --------------------------------------------------------------------------------------------------
 
@@ -108,6 +107,7 @@ local autoAI = require("scripts:AI")
 --###############################################################################################
 
 function onRender(dt)
+
       --************************************************************************************************
       -- Check To See If User Has Pressed Start To Begin Game
       --************************************************************************************************
@@ -116,19 +116,11 @@ function onRender(dt)
             ball.x = ball.x + ball.velX
             ball.y = ball.y + ball.velY
       end
-
-      --------------------------------------------------------------------------------------------------
-
-      --************************************************************************************************
-      -- Enable AI  AI = Player1 AI2 = Player2
-      --************************************************************************************************
-      
-	  autoAI.AIupdate(dt)
-
-      autoAI.AI2update(dt)
-
-      --------------------------------------------------------------------------------------------------
 	  
+	  
+
+      --------------------------------------------------------------------------------------------------
+
       --************************************************************************************************
       -- Bounce Ball Off Wall
       --************************************************************************************************
@@ -318,17 +310,13 @@ function onRender(dt)
 
             local textPosition1 = vector3.new(renderGetWidth() / 2, renderGetHeight() - 20, 0)
             graphics.setColorTint(color4.new(255 / 255, 255 / 255, 255 / 255, 1.0))
-
-            local scoreWidth, scoreHeight =
-                  graphics.measureFont(fontId, "XDK " .. player2.score .. " - " .. player1.score .. " NXDK")
-            local scoreTextSize = vector3.new(scoreWidth / 2, 0, 0)
-
-            graphics.drawFont(
-                  fontId,
-                  textPosition1 - scoreTextSize,
-                  "XDK " .. player2.score .. " - " .. player1.score .. " NXDK"
-            )
+			
+			local scoreWidth, scoreHeight = graphics.measureFont(fontId, "XDK " .. player2.score .. " - " .. player1.score .. " NXDK")
+			local scoreTextSize = vector3.new(scoreWidth /2, 0, 0)
+			
+            graphics.drawFont(fontId, textPosition1 - scoreTextSize ,"XDK " .. player2.score .. " - " .. player1.score .. " NXDK" )
             graphics.setColorTint(color4.new(255 / 255, 255 / 255, 255 / 255, 1.0))
+
 
             --------------------------------------------------------------------------------------------------
 

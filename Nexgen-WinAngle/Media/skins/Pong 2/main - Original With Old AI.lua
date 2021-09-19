@@ -23,13 +23,13 @@ local bouncingText = require("scripts:bouncingText")
 --************************************************************************************************
 
 local player1Img = graphics.loadTexture("assets:images\\paddles\\1.png")
-player1ImgWidth, player1ImgHeight = graphics.getTextureSize(player1Img)
+local player1ImgWidth, player1ImgHeight = graphics.getTextureSize(player1Img)
 
 local player2Img = graphics.loadTexture("assets:images\\paddles\\2.png")
-player2ImgWidth, player2ImgHeight = graphics.getTextureSize(player2Img)
+local player2ImgWidth, player2ImgHeight = graphics.getTextureSize(player2Img)
 
 local ballImg = graphics.loadTexture("assets:images\\balls\\ball.png")
-ballImgWidth, ballImgHeight = graphics.getTextureSize(ballImg)
+local ballImgWidth, ballImgHeight = graphics.getTextureSize(ballImg)
 
 --************************************************************************************************
 -- Define & Load Fonts.
@@ -62,19 +62,44 @@ local scores = sound.load("audio:sounds\\score.wav")
 -- Create tables & Store X & Y Positions Movement Speed & Score .
 --************************************************************************************************
 
-player1 = {
+local player1 = {
       x = 0 + player1ImgWidth,
       y = renderGetHeight() - player1ImgHeight,
       speed = 500,
       score = 0
 }
 
-player2 = {
+local player2 = {
       x = renderGetWidth() - player2ImgWidth * 2,
       y = renderGetHeight() - player2ImgHeight,
       speed = 500,
       score = 0
 }
+
+local AI = {
+	  x = renderGetWidth() - player2ImgWidth * 2,
+      y = renderGetHeight() - player2ImgHeight,
+      speed = 500,
+      score = 0,
+	  vel = 0,
+	  timer = 0,
+	  rate = 0.5
+	  
+}
+
+
+local AI2 = {
+	  x = 0 + player1ImgWidth,
+      y = renderGetHeight() - player1ImgHeight,
+      speed = 500,
+      score = 0,
+	  vel = 0,
+	  timer = 0,
+	  rate = 0.5
+	  
+}
+
+
 
 --------------------------------------------------------------------------------------------------
 
@@ -93,7 +118,92 @@ end
 
 ballReset()
 
-local autoAI = require("scripts:AI")
+
+----------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------
+
+function AI:update(dt)
+   self:move(dt)
+   self.timer = self.timer + dt
+   if self.timer > self.rate then
+      self.timer = 0
+      self:acquireTarget()
+   end
+end
+
+
+function AI:acquireTarget()
+
+--down
+   if ball.y + ballImgHeight < player1.y then
+      AI.vel = -AI.speed
+
+--up	  
+   elseif ball.y > player1.y + player1ImgHeight   then
+      AI.vel = AI.speed
+	  
+   else
+      AI.vel = 0
+   end
+   
+end
+
+function AI:move(dt)
+	  if player1.y < 0 then
+                  player1.y = 0
+	elseif player1.y > (renderGetHeight() - player1ImgHeight) then
+                  player1.y = (renderGetHeight() - player1ImgHeight)
+     end
+   player1.y = player1.y + AI.vel * dt
+end
+
+----------------------------------------------------------------------------------------------
+
+function AI2:update(dt)
+   self:move(dt)
+   self.timer = self.timer + dt
+   if self.timer > self.rate then
+      self.timer = 0
+      self:acquireTarget()
+   end
+end
+
+
+function AI2:acquireTarget()
+
+--down
+   if ball.y + ballImgHeight < player2.y then
+      AI2.vel = -AI2.speed
+
+--up	  
+   elseif ball.y > player2.y + player2ImgHeight   then
+      AI2.vel = AI2.speed
+	  
+   else
+      AI2.vel = 0
+   end
+   
+end
+
+function AI2:move(dt)
+	  if player2.y < 0 then
+                  player2.y = 0
+	elseif player2.y > (renderGetHeight() - player2ImgHeight) then
+                  player2.y = (renderGetHeight() - player2ImgHeight)
+     end
+   player2.y = player2.y + AI2.vel * dt
+end
+
+
+----------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
 
 --------------------------------------------------------------------------------------------------
 
@@ -108,6 +218,13 @@ local autoAI = require("scripts:AI")
 --###############################################################################################
 
 function onRender(dt)
+
+
+
+ AI:update(dt)
+ 
+ AI2:update(dt)
+
       --************************************************************************************************
       -- Check To See If User Has Pressed Start To Begin Game
       --************************************************************************************************
@@ -116,19 +233,11 @@ function onRender(dt)
             ball.x = ball.x + ball.velX
             ball.y = ball.y + ball.velY
       end
-
-      --------------------------------------------------------------------------------------------------
-
-      --************************************************************************************************
-      -- Enable AI  AI = Player1 AI2 = Player2
-      --************************************************************************************************
-      
-	  autoAI.AIupdate(dt)
-
-      autoAI.AI2update(dt)
-
-      --------------------------------------------------------------------------------------------------
 	  
+	  
+
+      --------------------------------------------------------------------------------------------------
+
       --************************************************************************************************
       -- Bounce Ball Off Wall
       --************************************************************************************************
@@ -318,17 +427,13 @@ function onRender(dt)
 
             local textPosition1 = vector3.new(renderGetWidth() / 2, renderGetHeight() - 20, 0)
             graphics.setColorTint(color4.new(255 / 255, 255 / 255, 255 / 255, 1.0))
-
-            local scoreWidth, scoreHeight =
-                  graphics.measureFont(fontId, "XDK " .. player2.score .. " - " .. player1.score .. " NXDK")
-            local scoreTextSize = vector3.new(scoreWidth / 2, 0, 0)
-
-            graphics.drawFont(
-                  fontId,
-                  textPosition1 - scoreTextSize,
-                  "XDK " .. player2.score .. " - " .. player1.score .. " NXDK"
-            )
+			
+			local scoreWidth, scoreHeight = graphics.measureFont(fontId, "XDK " .. player2.score .. " - " .. player1.score .. " NXDK")
+			local scoreTextSize = vector3.new(scoreWidth /2, 0, 0)
+			
+            graphics.drawFont(fontId, textPosition1 - scoreTextSize ,"XDK " .. player2.score .. " - " .. player1.score .. " NXDK" )
             graphics.setColorTint(color4.new(255 / 255, 255 / 255, 255 / 255, 1.0))
+
 
             --------------------------------------------------------------------------------------------------
 
