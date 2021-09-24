@@ -222,112 +222,116 @@ function onRender(dt)
   graphics.disableDepthTest()
   graphics.clear(true, 1.0, true, 0, true, color4.new(0.227, 0.227, 0.227, 1.0))
 
-  -- Parallax Background
-  -- Set Scroll Direction (VerticalUp, VerticalDown,  HorizontalLeft, HorizontalRight)
-  -- Speed
+  if graphics.beginScene() then
 
-  ParallaxScrolling(backgroundTextureId1,Layer1,VerticalDown, 100, dt)
-  
-  -- Message
+    -- Parallax Background
+    -- Set Scroll Direction (VerticalUp, VerticalDown,  HorizontalLeft, HorizontalRight)
+    -- Speed
 
-  --DisplayText Function Options
-  --How Far To Move Letters Up
-  --How Far To Move Letters Down
-  --How Fast Letter Move Up And Down
-  --Type Text To Display ("Text")
-  --Render Text Left To Right Or Right To Left ("Forward" or "Backward")
-  --Set Text To Cycle Colour Or Glow From One Colour To The Next ("Cycle" Or "Glow")
-  --Set Speed Between Colour Change
-  --Set Colour Palette, Other Colour Paletts Must Be Added To The Function
+    ParallaxScrolling(backgroundTextureId1,Layer1,VerticalDown, 100, dt)
+    
+    -- Message
 
- DisplayText(5, -5, 100, "Press Start To Attack!", "Forward", "Cycle", 250, 1, dt)
+    --DisplayText Function Options
+    --How Far To Move Letters Up
+    --How Far To Move Letters Down
+    --How Fast Letter Move Up And Down
+    --Type Text To Display ("Text")
+    --Render Text Left To Right Or Right To Left ("Forward" or "Backward")
+    --Set Text To Cycle Colour Or Glow From One Colour To The Next ("Cycle" Or "Glow")
+    --Set Speed Between Colour Change
+    --Set Colour Palette, Other Colour Paletts Must Be Added To The Function
 
-  if (controller.isButtonHeld(0, controller.Button["DpadLeft"])) then
-    PlaneLMRTrack = 1
-    if Player.x > 20 then
-      Player.x = Player.x - (Player.speed * dt)
+   DisplayText(5, -5, 100, "Press Start To Attack!", "Forward", "Cycle", 250, 1, dt)
+
+    if (controller.isButtonHeld(0, controller.Button["DpadLeft"])) then
+      PlaneLMRTrack = 1
+      if Player.x > 20 then
+        Player.x = Player.x - (Player.speed * dt)
+      end
+    elseif (controller.isButtonHeld(0, controller.Button["DpadRight"])) then
+      PlaneLMRTrack = 3
+      if Player.x < (renderGetWidth() - PlayerMiddleImgWidth - 20) then
+        Player.x = Player.x + (Player.speed * dt)
+      end
     end
-  elseif (controller.isButtonHeld(0, controller.Button["DpadRight"])) then
-    PlaneLMRTrack = 3
-    if Player.x < (renderGetWidth() - PlayerMiddleImgWidth - 20) then
-      Player.x = Player.x + (Player.speed * dt)
+    if (controller.isButtonHeld(0, controller.Button["DpadDown"])) then
+      if Player.y > 20 then
+        Player.y = Player.y - (Player.speed * dt)
+      end
+    elseif (controller.isButtonHeld(0, controller.Button["DpadUp"])) then
+      if Player.y < ((renderGetHeight() / 2) - PlayerMiddleImgHeight) then
+        Player.y = Player.y + (Player.speed * dt)
+      end
     end
-  end
-  if (controller.isButtonHeld(0, controller.Button["DpadDown"])) then
-    if Player.y > 20 then
-      Player.y = Player.y - (Player.speed * dt)
+
+    --************************************************************************************************
+    -- Create Player Bullet And Play Sound
+    --************************************************************************************************
+
+    --and CanShoot and IsAlive
+
+    if (controller.isButtonHeld(0, controller.Button["A"])) and CanShoot then
+      if PlaneLMRTrack == 1 then
+        newPlayerBulletsL = {x = Player.x + 28, y = Player.y + 32 + PlayerBulletImgHeight, img = nil}
+      elseif PlaneLMRTrack > 1 then
+        newPlayerBulletsL = {x = Player.x + 24, y = Player.y + 32 + PlayerBulletImgHeight, img = nil}
+      end
+      if PlaneLMRTrack < 3 then
+        newPlayerBulletsR = {x = Player.x + 85, y = Player.y + 32 + PlayerBulletImgHeight, img = nil}
+      elseif PlaneLMRTrack == 3 then
+        newPlayerBulletsR = {x = Player.x + 81, y = Player.y + 32 + PlayerBulletImgHeight, img = nil}
+      end
+      table.insert(PlayerBulletsL, newPlayerBulletsL)
+      table.insert(PlayerBulletsR, newPlayerBulletsR)
+      CanShoot = false
+      CanShootTimer = CanShootTimerMax
+    --sound.play(GunSound)
     end
-  elseif (controller.isButtonHeld(0, controller.Button["DpadUp"])) then
-    if Player.y < ((renderGetHeight() / 2) - PlayerMiddleImgHeight) then
-      Player.y = Player.y + (Player.speed * dt)
+
+    CanShootTimer = CanShootTimer - (1 * dt)
+    if CanShootTimer < 0 then
+      CanShoot = true
     end
-  end
 
-  --************************************************************************************************
-  -- Create Player Bullet And Play Sound
-  --************************************************************************************************
+    for i, bullet in ipairs(PlayerBulletsL) do
+      bullet.y = bullet.y + (800 * dt)
+      if bullet.y > renderGetHeight() then -- remove bullet if is out of screen
+        table.remove(PlayerBulletsL, i)
+      end
+    end
 
-  --and CanShoot and IsAlive
+    for i, bullet in ipairs(PlayerBulletsR) do
+      bullet.y = bullet.y + (800 * dt)
+      if bullet.y > renderGetHeight() then -- remove bullet if is out of screen
+        table.remove(PlayerBulletsR, i)
+      end
+    end
 
-  if (controller.isButtonHeld(0, controller.Button["A"])) and CanShoot then
+    for i, bullet in ipairs(PlayerBulletsL) do
+      graphics.drawNinePatch(PlayerBulletImg, vector3.new(bullet.x, bullet.y, 0.0), PlayerBulletImgWidth, PlayerBulletImgHeight, 0.0, 0.0)
+    end
+
+    for i, bullet in ipairs(PlayerBulletsR) do
+      graphics.drawNinePatch(PlayerBulletImg, vector3.new(bullet.x, bullet.y, 0.0), PlayerBulletImgWidth, PlayerBulletImgHeight, 0.0, 0.0)
+    end
+
     if PlaneLMRTrack == 1 then
-      newPlayerBulletsL = {x = Player.x + 28, y = Player.y + 32 + PlayerBulletImgHeight, img = nil}
-    elseif PlaneLMRTrack > 1 then
-      newPlayerBulletsL = {x = Player.x + 24, y = Player.y + 32 + PlayerBulletImgHeight, img = nil}
-    end
-    if PlaneLMRTrack < 3 then
-      newPlayerBulletsR = {x = Player.x + 85, y = Player.y + 32 + PlayerBulletImgHeight, img = nil}
+      graphics.drawNinePatch(PlayerLeftImg, vector3.new(Player.x, Player.y, 0.0), PlayerMiddleImgWidth, PlayerMiddleImgHeight, 0.0, 0.0)
+      PlaneLMRTrack = 2
+    elseif PlaneLMRTrack == 2 then
+      graphics.drawNinePatch(PlayerMiddleImg, vector3.new(Player.x, Player.y, 0.0), PlayerMiddleImgWidth, PlayerMiddleImgHeight, 0.0, 0.0)
     elseif PlaneLMRTrack == 3 then
-      newPlayerBulletsR = {x = Player.x + 81, y = Player.y + 32 + PlayerBulletImgHeight, img = nil}
+      graphics.drawNinePatch(PlayerRightImg, vector3.new(Player.x, Player.y, 0.0), PlayerMiddleImgWidth, PlayerMiddleImgHeight, 0.0, 0.0)
+      PlaneLMRTrack = 2
     end
-    table.insert(PlayerBulletsL, newPlayerBulletsL)
-    table.insert(PlayerBulletsR, newPlayerBulletsR)
-    CanShoot = false
-    CanShootTimer = CanShootTimerMax
-  --sound.play(GunSound)
+
+    sysinfo.getFps(fontId1, 165, 20, 15, dt)
+    --sysinfo.getMemory(fontId1, 20, 20, 10, dt)
+    graphics.endScene()
+    graphics.swapBuffers()
   end
 
-  CanShootTimer = CanShootTimer - (1 * dt)
-  if CanShootTimer < 0 then
-    CanShoot = true
-  end
-
-  for i, bullet in ipairs(PlayerBulletsL) do
-    bullet.y = bullet.y + (800 * dt)
-    if bullet.y > renderGetHeight() then -- remove bullet if is out of screen
-      table.remove(PlayerBulletsL, i)
-    end
-  end
-
-  for i, bullet in ipairs(PlayerBulletsR) do
-    bullet.y = bullet.y + (800 * dt)
-    if bullet.y > renderGetHeight() then -- remove bullet if is out of screen
-      table.remove(PlayerBulletsR, i)
-    end
-  end
-
-  for i, bullet in ipairs(PlayerBulletsL) do
-    graphics.drawNinePatch(PlayerBulletImg, vector3.new(bullet.x, bullet.y, 0.0), PlayerBulletImgWidth, PlayerBulletImgHeight, 0.0, 0.0)
-  end
-
-  for i, bullet in ipairs(PlayerBulletsR) do
-    graphics.drawNinePatch(PlayerBulletImg, vector3.new(bullet.x, bullet.y, 0.0), PlayerBulletImgWidth, PlayerBulletImgHeight, 0.0, 0.0)
-  end
-
-  if PlaneLMRTrack == 1 then
-    graphics.drawNinePatch(PlayerLeftImg, vector3.new(Player.x, Player.y, 0.0), PlayerMiddleImgWidth, PlayerMiddleImgHeight, 0.0, 0.0)
-    PlaneLMRTrack = 2
-  elseif PlaneLMRTrack == 2 then
-    graphics.drawNinePatch(PlayerMiddleImg, vector3.new(Player.x, Player.y, 0.0), PlayerMiddleImgWidth, PlayerMiddleImgHeight, 0.0, 0.0)
-  elseif PlaneLMRTrack == 3 then
-    graphics.drawNinePatch(PlayerRightImg, vector3.new(Player.x, Player.y, 0.0), PlayerMiddleImgWidth, PlayerMiddleImgHeight, 0.0, 0.0)
-    PlaneLMRTrack = 2
-  end
-
-  sysinfo.getFps(fontId1, 165, 20, 15, dt)
-  --sysinfo.getMemory(fontId1, 20, 20, 10, dt)
-  graphics.endScene()
-  graphics.swapBuffers()
 end
 
 print("done")
