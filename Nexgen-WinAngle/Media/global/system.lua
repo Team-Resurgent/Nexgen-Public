@@ -122,6 +122,59 @@ function system.launch(path)
 end
 
 --[[
+% systemIsXboxOG()
+
+Used to check if nexgen is running on Xbox OG.
+
+: (boolean) Whether or not the operation succeeded
+--]]
+function system.systemIsXboxOG()
+	return  systemIsXboxOG()
+end
+
+--[[
+% systemIsXbox360()
+
+Used to check if nexgen is running on Xbox 360.
+
+: (boolean) Whether or not the operation succeeded
+--]]
+function system.systemIsXbox360()
+	return  systemIsXbox360()
+end
+--[[
+% systemIsXboxOne()
+
+Used to check if nexgen is running on Xbox One.
+
+: (boolean) Whether or not the operation succeeded
+--]]
+function system.systemIsXboxOne()
+	return  systemIsXboxOne()
+end
+--[[
+% systemIsWindows()
+
+Used to check if nexgen is running on Windows.
+
+: (boolean) Whether or not the operation succeeded
+--]]
+function system.systemIsWindows()
+	return  systemIsWindows()
+end
+
+--[[
+% systemGetXboxOGTrayState()
+
+Used to Get the states of the DVD Drive on Xbox OG.
+
+: (boolean) Whether or not the operation succeeded
+--]]
+function system.systemGetXboxOGTrayState()
+	return  systemGetXboxOGTrayState()
+end
+
+--[[
 % registerCallback(callbackFunction)
 
 Used to register a callback fnction.
