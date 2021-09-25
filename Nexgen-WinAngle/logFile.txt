@@ -1,3 +1,0 @@
-INFO: Socket server init on port 80
-INFO: 681
-INFO: done
