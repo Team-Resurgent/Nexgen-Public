@@ -91,7 +91,7 @@ function onRender(dt)
 
 	  graphics.setColorTint(color4.new(1.0, 1.0, 1.0, 1.0)) -- restore to default 
 	
-		graphics.activateTexture(sheetTextureId)
+		graphics.activateTexture(sheetTextureId, graphics.Filter['Nearest'])
 		graphics.activateMesh(sheetMeshId, 0)
 
 		-- above we asked for a sprite 64 x 64, so move it so its center is 0,0 
@@ -101,8 +101,11 @@ function onRender(dt)
 		local rotateTransform = matrix4.rotateZ(spriteRotate)
 		-- move back to 0,0
 		local translateTransform2 = matrix4.translate(32,32, 0, 0)
+		-- scale by siz times
+		local scaleTransform = matrix4.scale(6,6,1)
+
 		-- multiply the transforms in order
-		local spriteTransform = translateTransform1 * rotateTransform * translateTransform2
+		local spriteTransform = translateTransform1 * rotateTransform * translateTransform2 * scaleTransform
 		-- tell shader we want to use this transform
 		graphics.setModelMatrix(spriteTransform)
 		graphics.drawMesh(sheetFrame * 6, 6)
