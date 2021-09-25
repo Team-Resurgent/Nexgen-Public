@@ -107,9 +107,9 @@ b.score = 0
 --************************************************************************************************
 
 if InGameMusic == "On" then
-sound.play(IGMusic)
-sound.setRepeat(IGMusic, -1)
-print("Music repeat on")
+	sound.setRepeat(IGMusic, -1)
+	sound.play(IGMusic)
+	print("Music repeat on")
 end
 
 -------------------------------------------------------------------------------------------------- 

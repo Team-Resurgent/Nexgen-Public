@@ -6,12 +6,17 @@ maths module
 
 local maths = {}
 
-function maths.toInteger(value)
-	return mathToInteger(value)
-end
+--[[
+% degreesToRadians()
 
-function maths.degreesToRadians(value)
-	return mathDegreesToRadians(value)
+Used to convert a degrees value to radians.
+
+@ degrees (number) degrees value
+
+: (number) value converted to radians
+--]]
+function maths.degreesToRadians(degrees)
+	return mathDegreesToRadians(degrees)
 end
 
 return maths

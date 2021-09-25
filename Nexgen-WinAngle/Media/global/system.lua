@@ -142,6 +142,7 @@ Used to check if nexgen is running on Xbox 360.
 function system.systemIsXbox360()
 	return  systemIsXbox360()
 end
+
 --[[
 % systemIsXboxOne()
 
@@ -152,6 +153,7 @@ Used to check if nexgen is running on Xbox One.
 function system.systemIsXboxOne()
 	return  systemIsXboxOne()
 end
+
 --[[
 % systemIsWindows()
 

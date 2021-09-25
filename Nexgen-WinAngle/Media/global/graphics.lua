@@ -65,11 +65,12 @@ end
 Used to activate texture when about to draw a mesh.
 
 @ path (string) path of image to load
+@ filter (integer) filter to use
 
 : (boolean) Whether or not the operation succeeded
 --]]
-function graphics.activateTexture(textureId)
-	return renderActivateTexture(textureId)
+function graphics.activateTexture(textureId, filter)
+	return renderActivateTexture(textureId, filter or graphics.Filter['Linear'])
 end
 
 --[[
@@ -365,11 +366,12 @@ Draws font to current render buffer
 @ fontId (integer) ID of font 
 @ position (vector3) position
 @ message (string) message
+@ filter (integer) filter to use
 
 : (boolean) Whether or not the operation succeeded
 --]]
-function graphics.drawFont(fontId, position, message)
-	return renderDrawFont(fontId, position, message)
+function graphics.drawFont(fontId, position, message, filter)
+	return renderDrawFont(fontId, position, message, filter or graphics.Filter['Linear'])
 end
 
 --[[
@@ -710,11 +712,12 @@ Draws nine patch mesh
 @ height (number) height
 @ cornerPercentX (number) X axis corner percentage of width
 @ cornerPercentY (number) Y axis corner percentage of height
+@ filter (integer) filter to use
 
 : (boolean) Whether or not the operation succeeded
 --]]
-function graphics.drawNinePatch(textureId, position, width, height, cornerPercentX, cornerPercentY)
-	return renderDrawNinePatch(textureId, position, width, height, cornerPercentX, cornerPercentY)
+function graphics.drawNinePatch(textureId, position, width, height, cornerPercentX, cornerPercentY, filter)
+	return renderDrawNinePatch(textureId, position, width, height, cornerPercentX, cornerPercentY, filter or graphics.Filter['Linear'])
 end
 
 --[[
@@ -832,6 +835,22 @@ graphics.BlendFactor = {
 	['ConstantAlpha'] = 12,
 	['OneMinusConstantAlpha'] = 13,
 	['AlphaSaturate'] = 14
+}
+
+--[[
+% Filter['FilterId']
+
+
+Collection of Filter Id values to number. Example:
+
+
+@ Linear (string) = 0
+@ Nearest (string) = 1
+
+--]]
+graphics.Filter = {
+	['Linear'] = 0,
+	['Nearest'] = 1,
 }
 
 return graphics

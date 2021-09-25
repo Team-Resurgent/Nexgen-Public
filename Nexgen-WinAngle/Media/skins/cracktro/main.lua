@@ -58,7 +58,7 @@ function onRender(dt)
 
 	sheetCount = sheetCount + (dt * 20)
 
-	local sheetFrame = mathToInteger(sheetCount) % 255
+	local sheetFrame = math.floor(sheetCount) % 255
 
 	if graphics.beginScene() then
 

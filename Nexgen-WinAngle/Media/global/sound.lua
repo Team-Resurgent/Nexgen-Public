@@ -61,7 +61,7 @@ end
 --[[
 % setRepeat(soundId, count)
 
-Used to set repeat flag on sound.
+Used to set repeat flag on sound (should be called before play).
 
 @ soundId (integer) ID of sound
 @ count (integer) times to repeat, -1 to repeat for ever
