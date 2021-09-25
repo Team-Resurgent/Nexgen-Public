@@ -8,31 +8,16 @@ local sysinfo = require("scripts:sysinfo")
 --
 --************************************************************************************************
 
-if graphics.getHeight() > 440 and graphics.getHeight() < 481 then
-  backgroundTextureId1 = graphics.loadTexture("assets:images\\backgrounds\\layers480\\far-buildings.png")
-  backgroundTextureId2 = graphics.loadTexture("assets:images\\backgrounds\\layers480\\back-buildings.png")
-  backgroundTextureId3 = graphics.loadTexture("assets:images\\backgrounds\\layers480\\foreground.png")
-elseif graphics.getHeight() > 680 and graphics.getHeight() < 721 then
-  backgroundTextureId1 = graphics.loadTexture("assets:images\\backgrounds\\layers720\\far-buildings.png")
-  backgroundTextureId2 = graphics.loadTexture("assets:images\\backgrounds\\layers720\\back-buildings.png")
-  backgroundTextureId3 = graphics.loadTexture("assets:images\\backgrounds\\layers720\\foreground.png")
-elseif graphics.getHeight() > 1040 and graphics.getHeight() < 1081 then
-  backgroundTextureId1 = graphics.loadTexture("assets:images\\backgrounds\\layers1080\\far-buildings.png")
-  backgroundTextureId2 = graphics.loadTexture("assets:images\\backgrounds\\layers1080\\back-buildings.png")
-  backgroundTextureId3 = graphics.loadTexture("assets:images\\backgrounds\\layers1080\\foreground.png")
-end
---local backgroundWidth, backgroundHeight = graphics.getTextureSize(backgroundTextureId)
+backgroundTextureId1 = {Layer = graphics.loadTexture("assets:images\\backgrounds\\far-buildings.png"), x = 0, y = 0}
+backgroundTextureId2 = {Layer = graphics.loadTexture("assets:images\\backgrounds\\back-buildings.png"), x = 0, y = 0}
+backgroundTextureId3 = {Layer = graphics.loadTexture("assets:images\\backgrounds\\foreground.png"), x = 0, y = 0}
 
--- This is the number of backgrounds
-Layer1 = {x = 0, y = 0}
-Layer2 = {x = 0, y = 0}
-Layer3 = {x = 0, y = 0}
+BackgroundWidth, BackgroundHeight = graphics.getTextureSize(backgroundTextureId1.Layer)
+BackgroundScale = math.floor(renderGetHeight() / BackgroundHeight)
+backgroundTextureId1.y = renderGetHeight() - (BackgroundHeight * BackgroundScale)
 
 --Set Variabled for Parallax Background Scrolling
-VerticalUp = 0
-VerticalDown = 1
-HorizontalLeft = 2
-HorizontalRight = 3
+VerticalUp, VerticalDown, HorizontalLeft, HorizontalRight = 0, 1, 2, 3
 
 --************************************************************************************************
 --
@@ -184,7 +169,7 @@ function DisplayText(DisplayTextHigh, DisplayTextLow, DisplayTextSpeed, DisplayT
 end
 
 
-function ParallaxScrolling(layerID, background , parallaxDirection, parallaxSpeed, dt)
+function ParallaxScrolling(background, parallaxDirection, parallaxSpeed, dt)
   if parallaxDirection == VerticalUp then
     -- Parallax background scrolling Vertical Up
     background.y = background.y + parallaxSpeed * dt
@@ -215,8 +200,8 @@ function ParallaxScrolling(layerID, background , parallaxDirection, parallaxSpee
     direction = vector3.new(background.x + renderGetWidth(), background.y, 0.0) 
   end
 
-  graphics.drawNinePatch(layerID, vector3.new(background.x, background.y, 0.0), renderGetWidth(), renderGetHeight(), 0.0, 0.0)
-  graphics.drawNinePatch(layerID, direction, renderGetWidth(), renderGetHeight(), 0.0, 0.0)
+  graphics.drawNinePatch(background.Layer, vector3.new(background.x, background.y, 0.0), renderGetWidth(), BackgroundHeight * BackgroundScale, 0.0, 0.0, graphics.Filter['Nearest'])
+  graphics.drawNinePatch(background.Layer, direction, renderGetWidth(), BackgroundHeight * BackgroundScale, 0.0, 0.0, graphics.Filter['Nearest'])
 end
 
 
@@ -241,9 +226,9 @@ function onRender(dt)
   -- Set Scroll Direction (VerticalUp, VerticalDown,  HorizontalLeft, HorizontalRight)
   -- Speed
 
-  ParallaxScrolling(backgroundTextureId1,Layer1,HorizontalLeft, 20, dt)
-  ParallaxScrolling(backgroundTextureId2,Layer2,HorizontalLeft, 40, dt)
-  ParallaxScrolling(backgroundTextureId3,Layer3,HorizontalLeft, 60, dt)
+  ParallaxScrolling(backgroundTextureId1, HorizontalLeft, 20, dt)
+  ParallaxScrolling(backgroundTextureId2, HorizontalLeft, 40, dt)
+  ParallaxScrolling(backgroundTextureId3, HorizontalLeft, 60, dt)
   
   -- Message
 
