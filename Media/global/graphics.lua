@@ -757,6 +757,19 @@ function graphics.swapBuffers()
 end
 
 --[[
+% setDrawMode(operation)
+
+Sets current shader model matrix.
+
+@ operation (integer) draw mode operation
+
+: (boolean) Whether or not the operation succeeded
+--]]
+function graphics.setDrawMode(operation)
+	return renderSetDrawMode(operation)
+end
+
+--[[
 % DepthOp['DepthOpId']
 
 
@@ -875,7 +888,25 @@ Collection of Filter Id values to number. Example:
 --]]
 graphics.Filter = {
 	['Linear'] = 0,
-	['Nearest'] = 1,
+	['Nearest'] = 1
+}
+
+--[[
+% DrawMode['DrawModeId']
+
+
+Collection of Draw Mode Id values to number. Example:
+
+
+@ Triangle (string) = 0
+@ Line (string) = 1
+@ Point (string) = 2
+
+--]]
+graphics.DrawMode = {
+	['Triangle'] = 0,
+	['Line'] = 1,
+	['Point'] = 2
 }
 
 return graphics
