@@ -6,7 +6,7 @@ end
 require("global:Globals")
 
 local sheetTextureId = graphics.loadTexture("assets:images\\sprite-sheet.png")
-local sheetMeshId = graphics.createSheetMeshCollection(0, 0, 0, 64, 64, 16, 16)
+local sheetMeshId = graphics.createSheetMeshCollection(vector3.new(0, 0, 0), 64, 64, 16, 16)
 graphics.bindMesh(sheetMeshId, 0)
 
 local sheetCount = 0
@@ -24,7 +24,7 @@ local soundIndex = sound.load("audio:music\\comic.wav")
 sound.play(soundIndex)
 
 local backgroundTextureId = graphics.loadTexture("assets:images\\backgrounds\\background.png")
-local screenMeshId = graphics.createPlaneXYMeshCollection(0, 0, 0, renderGetWidth(), renderGetHeight(), 1, 1)
+local screenMeshId = graphics.createPlaneXYMeshCollection(vector3.new(0, 0, 0), renderGetWidth(), renderGetHeight(), 1, 1)
 graphics.bindMesh(screenMeshId, 0)
 
 local fontId = graphics.loadFont("assets:fonts\\bahnschrift-bold-37px.fnt")

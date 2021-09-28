@@ -43,7 +43,7 @@ local waveCurrentFrame = 1
 
 -- Load background texture / wallpaper.
 local backgroundTextureId = graphics.loadTexture("assets:images\\backgrounds\\Water.png")
-local screenMeshId = graphics.createPlaneXYMeshCollection(0, 0, 0, renderGetWidth(), renderGetHeight(), 1, 1)
+local screenMeshId = graphics.createPlaneXYMeshCollection(vector3.new(0, 0, 0), renderGetWidth(), renderGetHeight(), 1, 1)
 graphics.bindMesh(screenMeshId, 0)
 
 -- Define variables.
@@ -129,22 +129,10 @@ function onRender(dt)
             graphics.drawMesh(0, 6)
 
             -- Render ship & waves onto screen
-            graphics.drawNinePatch(
-                  waves[math.floor(waveCurrentFrame)],
-                  vector3.new(shipTable.x, shipTable.y, 0.0),
-                  shipWidth,
-                  shipHeight,
-                  0.0,
-                  0.0
-            )
-            graphics.drawNinePatch(
-                  ship,
-                  vector3.new(shipTable.x + 15, shipTable.y + 15, 0.0),
-                  shipWidth - 30,
-                  shipHeight - 30,
-                  0.0,
-                  0.0
-            )
+            graphics.activateTexture(waves[math.floor(waveCurrentFrame)])
+            graphics.drawQuad(vector3.new(shipTable.x, shipTable.y, 0.0), shipWidth, shipHeight)
+            graphics.activateTexture(ship)
+            graphics.drawQuad(vector3.new(shipTable.x + 15, shipTable.y + 15, 0.0), shipWidth - 30, shipHeight - 30)
 
             graphics.endScene()
             graphics.swapBuffers()

@@ -200,8 +200,12 @@ function ParallaxScrolling(layerID, background , parallaxDirection, parallaxSpee
     direction = vector3.new(background.x + renderGetWidth(), background.y, 0.0) 
   end
 
-  graphics.drawNinePatch(layerID, vector3.new(background.x, background.y, 0.0), renderGetWidth(), renderGetHeight(), 0.0, 0.0)
-  graphics.drawNinePatch(layerID, direction, renderGetWidth(), renderGetHeight(), 0.0, 0.0)
+  graphics.activateTexture(layerID) 
+  graphics.drawQuad(vector3.new(background.x, background.y, 0.0), renderGetWidth(), renderGetHeight())
+ 
+  graphics.activateTexture(layerID)
+  graphics.drawQuad(direction, renderGetWidth(), renderGetHeight())
+  
 end
 
 
@@ -309,20 +313,25 @@ function onRender(dt)
     end
 
     for i, bullet in ipairs(PlayerBulletsL) do
-      graphics.drawNinePatch(PlayerBulletImg, vector3.new(bullet.x, bullet.y, 0.0), PlayerBulletImgWidth, PlayerBulletImgHeight, 0.0, 0.0)
+      graphics.activateTexture(PlayerBulletImg)
+      graphics.drawQuad(vector3.new(bullet.x, bullet.y, 0.0), PlayerBulletImgWidth, PlayerBulletImgHeight)
     end
 
     for i, bullet in ipairs(PlayerBulletsR) do
-      graphics.drawNinePatch(PlayerBulletImg, vector3.new(bullet.x, bullet.y, 0.0), PlayerBulletImgWidth, PlayerBulletImgHeight, 0.0, 0.0)
+      graphics.activateTexture(PlayerBulletImg)
+      graphics.drawQuad(vector3.new(bullet.x, bullet.y, 0.0), PlayerBulletImgWidth, PlayerBulletImgHeight)
     end
 
     if PlaneLMRTrack == 1 then
-      graphics.drawNinePatch(PlayerLeftImg, vector3.new(Player.x, Player.y, 0.0), PlayerMiddleImgWidth, PlayerMiddleImgHeight, 0.0, 0.0)
+      graphics.activateTexture(PlayerLeftImg)
+      graphics.drawQuad(vector3.new(Player.x, Player.y, 0.0), PlayerMiddleImgWidth, PlayerMiddleImgHeight)
       PlaneLMRTrack = 2
     elseif PlaneLMRTrack == 2 then
-      graphics.drawNinePatch(PlayerMiddleImg, vector3.new(Player.x, Player.y, 0.0), PlayerMiddleImgWidth, PlayerMiddleImgHeight, 0.0, 0.0)
+      graphics.activateTexture(PlayerMiddleImg)
+      graphics.drawQuad(vector3.new(Player.x, Player.y, 0.0), PlayerMiddleImgWidth, PlayerMiddleImgHeight)
     elseif PlaneLMRTrack == 3 then
-      graphics.drawNinePatch(PlayerRightImg, vector3.new(Player.x, Player.y, 0.0), PlayerMiddleImgWidth, PlayerMiddleImgHeight, 0.0, 0.0)
+      graphics.activateTexture(PlayerRightImg)
+      graphics.drawQuad(vector3.new(Player.x, Player.y, 0.0), PlayerMiddleImgWidth, PlayerMiddleImgHeight)
       PlaneLMRTrack = 2
     end
 

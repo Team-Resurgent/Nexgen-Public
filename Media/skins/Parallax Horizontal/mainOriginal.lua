@@ -12,15 +12,9 @@ backgroundTextureId1 = {Layer = graphics.loadTexture("assets:images\\backgrounds
 backgroundTextureId2 = {Layer = graphics.loadTexture("assets:images\\backgrounds\\back-buildings.png"), x = 0, y = 0}
 backgroundTextureId3 = {Layer = graphics.loadTexture("assets:images\\backgrounds\\foreground.png"), x = 0, y = 0}
 
-backgroundTextureId1.Width, backgroundTextureId1.Height = graphics.getTextureSize(backgroundTextureId1.Layer)
-backgroundTextureId2.Width, backgroundTextureId2.Height = graphics.getTextureSize(backgroundTextureId2.Layer)
-backgroundTextureId3.Width, backgroundTextureId3.Height = graphics.getTextureSize(backgroundTextureId3.Layer)
-
-backgroundTextureId1.Scale = math.floor(renderGetHeight() / backgroundTextureId1.Height)
-backgroundTextureId2.Scale = math.floor(renderGetHeight() / backgroundTextureId2.Height)
-backgroundTextureId3.Scale = math.floor(renderGetHeight() / backgroundTextureId3.Height)
-
-backgroundTextureId1.y = renderGetHeight() - (backgroundTextureId1.Height * backgroundTextureId1.Scale)
+BackgroundWidth, BackgroundHeight = graphics.getTextureSize(backgroundTextureId1.Layer)
+BackgroundScale = math.floor(renderGetHeight() / BackgroundHeight)
+backgroundTextureId1.y = renderGetHeight() - (BackgroundHeight * BackgroundScale)
 
 --Set Variabled for Parallax Background Scrolling
 VerticalUp, VerticalDown, HorizontalLeft, HorizontalRight = 0, 1, 2, 3
@@ -42,23 +36,14 @@ function ParallaxScrolling(background, parallaxDirection, parallaxSpeed, dt)
       background.y = background.y + renderGetHeight()
     end
     direction = vector3.new(background.x, background.y - renderGetHeight(), 0.0)
-  
   elseif parallaxDirection == HorizontalLeft then
     -- Parallax background scrolling Horizontal Left
     background.x = background.x - parallaxSpeed * dt
     if background.x < 0 then
-      background.x = background.x + (background.Width * background.Scale)
-	  --print("looped")
+      background.x = background.x + renderGetWidth()
     end
-    direction = vector3.new(background.x - (background.Width * background.Scale) , background.y, 0.0)
-	--print("Started")
-	
-	-- if background.x > (background.Width * background.Scale) then
-      -- direction = vector3.new(background.x - (background.Width * background.Scale) , background.y, 0.0)
-	  -- print("looped")
-    -- end
-  
-	elseif parallaxDirection == HorizontalRight then
+    direction = vector3.new(background.x - renderGetWidth(), background.y, 0.0)	
+  elseif parallaxDirection == HorizontalRight then
     -- Parallax background scrolling Horizontal Right
     background.x = background.x + parallaxSpeed * dt
     if background.x > 0 then
@@ -67,14 +52,12 @@ function ParallaxScrolling(background, parallaxDirection, parallaxSpeed, dt)
     direction = vector3.new(background.x + renderGetWidth(), background.y, 0.0) 
   end
 
---print(renderGetWidth() - (background.Width * background.Scale))
+  graphics.activateTexture(background.Layer, graphics.Filter['Nearest'])
+  graphics.drawQuad(vector3.new(background.x, background.y, 0.0), renderGetWidth(), BackgroundHeight * BackgroundScale)
 
   graphics.activateTexture(background.Layer, graphics.Filter['Nearest'])
-  graphics.drawQuad(vector3.new(background.x, background.y, 0.0), background.Width * background.Scale, background.Height * background.Scale)
+  graphics.drawQuad(direction, renderGetWidth(), BackgroundHeight * BackgroundScale)
 
-  graphics.activateTexture(background.Layer, graphics.Filter['Nearest'])
-  graphics.drawQuad(direction, background.Width * background.Scale, background.Height * background.Scale)
-  
 end
 
 graphics.setColorTint(color4.new(255 / 255, 255 / 255, 255 / 255, 1.0)) -- Default colour back to white

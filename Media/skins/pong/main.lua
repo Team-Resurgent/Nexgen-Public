@@ -53,7 +53,7 @@ fontId = graphics.loadFont("assets:fonts\\Arial_Black_20px.fnt")
 
 if Background2DWallpapper == "On" then
 backgroundTextureId = graphics.loadTexture("assets:images\\backgrounds\\PongBackground.jpg")
-backgroundMeshId = graphics.createPlaneXYMeshCollection(0, 0, 0, renderGetWidth(), renderGetHeight(), 1, 1)
+backgroundMeshId = graphics.createPlaneXYMeshCollection(vector3.new(0, 0, 0), renderGetWidth(), renderGetHeight(), 1, 1)
 graphics.bindMesh(backgroundMeshId, 0)
 end
 
@@ -271,14 +271,17 @@ graphics.setProjectionMatrix(orthoMatrix)
 
 graphics.setColorTint(TextColour1Default)
 
-graphics.drawNinePatch(buttonTextureId, vector3.new(ball.x, ball.y, 0.0), ball.width, ball.height, 0.25, 0.25)
+graphics.activateTexture(buttonTextureId)
+graphics.drawQuad(vector3.new(ball.x, ball.y, 0.0), ball.width, ball.height)
 	--love.graphics.rectangle("fill", ball.x, ball.y, ball.width, ball.height)
 	--love.graphics.rectangle("line", map.offset, map.offset, map.width, map.height)
 
 	--draw paddles
-graphics.drawNinePatch(buttonTextureId, vector3.new(a.x, a.y, 0.0), a.width, a.height, 0.25, 0.25)
+graphics.activateTexture(buttonTextureId)
+graphics.drawQuad(vector3.new(a.x, a.y, 0.0), a.width, a.height)
 	--love.graphics.rectangle("fill", a.x, a.y, a.width, a.height)
-graphics.drawNinePatch(buttonTextureId, vector3.new(b.x, b.y, 0.0), b.width, b.height, 0.25, 0.25)
+graphics.activateTexture(buttonTextureId)
+graphics.drawQuad(vector3.new(b.x, b.y, 0.0), b.width, b.height)
 	--love.graphics.rectangle("fill", b.x, b.y, b.width, b.height)
 
 	--love.graphics.setFont(scoreFont)

@@ -51,7 +51,7 @@ fontId = graphics.loadFont("assets:fonts\\Arial_Black_20px.fnt")
 
 if Background2DWallpapper == "On" then
 backgroundTextureId = graphics.loadTexture("assets:images\\backgrounds\\bg.png")
-backgroundMeshId = graphics.createPlaneXYMeshCollection(0, 0, 0, renderGetWidth(), renderGetHeight(), 1, 1)
+backgroundMeshId = graphics.createPlaneXYMeshCollection(vector3.new(0, 0, 0), renderGetWidth(), renderGetHeight(), 1, 1)
 graphics.bindMesh(backgroundMeshId, 0)
 end
 
@@ -547,7 +547,8 @@ graphics.setColorTint(TextColour1Default)
 
   if IsAlive then
       --love.graphics.draw(Player.img, Player.x, Player.y)
-  graphics.drawNinePatch(PlayerImg, vector3.new(Player.x, Player.y, 0.0), playerWidth, playerHeight, 0.0, 0.0)
+    graphics.activateTexture(PlayerImg)
+    graphics.drawQuad(vector3.new(Player.x, Player.y, 0.0), playerWidth, playerHeight)
 
   else
   --love.graphics.print('Press R to Restart', love.graphics:getWidth()/2-50, love.graphics:getHeight()/2-10)
@@ -565,7 +566,8 @@ graphics.setColorTint(TextColour1Default)
 --************************************************************************************************
 
   if boss.hp > 0 then
-  graphics.drawNinePatch(BossImg, vector3.new(boss.x, boss.y, 0.0), bossWidth, bossHeight, 0.0, 0.0)
+    graphics.activateTexture(BossImg)
+    graphics.drawQuad(vector3.new(boss.x, boss.y, 0.0), bossWidth, bossHeight)
   end
   
 -------------------------------------------------------------------------------------------------- 
@@ -575,8 +577,8 @@ graphics.setColorTint(TextColour1Default)
 --************************************************************************************************ 
   
   for i, bulletBoss in ipairs(bulletsBoss) do
-	graphics.drawNinePatch(EnemyBulletImg, vector3.new(bulletBoss.x, bulletBoss.y, 0.0), bulletWidth, bulletHeight, 0.0, 0.0)
-	
+    graphics.activateTexture(EnemyBulletImg)
+    graphics.drawQuad(vector3.new(bulletBoss.x, bulletBoss.y, 0.0), bulletWidth, bulletHeight)	
 	end
 
 -------------------------------------------------------------------------------------------------- 
@@ -613,7 +615,8 @@ graphics.setColorTint(TextColour1Default)
 --************************************************************************************************   
   
   for i,bullet in ipairs(Bullets) do
-  graphics.drawNinePatch(BulletImg, vector3.new(bullet.x, bullet.y, 0.0), bulletWidth, bulletHeight, 0.25, 0.25)
+    graphics.activateTexture(BulletImg)
+    graphics.drawQuad(vector3.new(bullet.x, bullet.y, 0.0), bulletWidth, bulletHeight)
   end
 
 -------------------------------------------------------------------------------------------------- 
@@ -623,7 +626,8 @@ graphics.setColorTint(TextColour1Default)
 --************************************************************************************************ 
 
   for i,enemy in ipairs(Enemies) do
-    graphics.drawNinePatch(EnemyImg, vector3.new(enemy.x, enemy.y, 0.0), enemyWidth, enemyHeight, 0.0, 0.0)
+    graphics.activateTexture(EnemyImg)
+    graphics.drawQuad(vector3.new(enemy.x, enemy.y, 0.0), enemyWidth, enemyHeight)
   end
 
 -------------------------------------------------------------------------------------------------- 

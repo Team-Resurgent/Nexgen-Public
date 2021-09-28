@@ -44,7 +44,7 @@ fontId = graphics.loadFont("assets:fonts\\Mobile_39px.fnt")
 --************************************************************************************************
 
 local backgroundTextureId = graphics.loadTexture("assets:images\\backgrounds\\universe.png")
-local screenMeshId = graphics.createPlaneXYMeshCollection(0, 0, 0, renderGetWidth(), renderGetHeight(), 1, 1)
+local screenMeshId = graphics.createPlaneXYMeshCollection(vector3.new(0, 0, 0), renderGetWidth(), renderGetHeight(), 1, 1)
 graphics.bindMesh(screenMeshId, 0)
 
 --------------------------------------------------------------------------------------------------
@@ -385,23 +385,11 @@ function onRender(dt)
             -- Render Players Onto Screen
             --************************************************************************************************
 
-            graphics.drawNinePatch(
-                  player1Img,
-                  vector3.new(player1.x, player1.y, 0.0),
-                  player1ImgWidth,
-                  player1ImgHeight,
-                  0.0,
-                  0.0
-            )
-
-            graphics.drawNinePatch(
-                  player2Img,
-                  vector3.new(player2.x, player2.y, 0.0),
-                  player2ImgWidth,
-                  player2ImgHeight,
-                  0.0,
-                  0.0
-            )
+            graphics.activateTexture(player1Img)
+            graphics.drawQuad(vector3.new(player1.x, player1.y, 0.0), player1ImgWidth, player1ImgHeight)
+   
+            graphics.activateTexture(player2Img)
+            graphics.drawQuad(vector3.new(player2.x, player2.y, 0.0), player2ImgWidth, player2ImgHeight)
 
             --------------------------------------------------------------------------------------------------
 
@@ -409,14 +397,8 @@ function onRender(dt)
             -- Render Ball Onto Screen Only Once Player Has Pressed Start
             --************************************************************************************************
             if startGame == 1 then
-                  graphics.drawNinePatch(
-                        ballImg,
-                        vector3.new(ball.x, ball.y, 0.0),
-                        ballImgWidth,
-                        ballImgHeight,
-                        0.0,
-                        0.0
-                  )
+                  graphics.activateTexture(ballImg)
+                  graphics.drawQuad(vector3.new(ball.x, ball.y, 0.0), ballImgWidth, ballImgHeight)
             end
 
             --------------------------------------------------------------------------------------------------

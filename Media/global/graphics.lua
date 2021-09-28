@@ -118,37 +118,41 @@ end
 
 Used to create a mesh collection into memory consising of a single mesh. The mesh is divided in a number of rows and columns. Each cell is an individual quad.
 
-@ x (number) x position
-@ y (number) y position
-@ z (number) z position
+@ position (vector3) position
 @ width (number) width
 @ height (number) height
 @ rows (number) rows
 @ cols (number) cols
+@ uvX (number) x coord of texture coord 0 to 1
+@ uvY (number) y coord of texture coord 0 to 1
+@ uvWidth (number) width of texture coord 0 to 1
+@ uvHeight (number) eight of texture coord 0 to 1
 
 : (integer) ID of mesh collection, otherwise 0
 --]]
-function graphics.createSheetMeshCollection(x, y, z, width, height, rows, cols)
-	return renderCreateSheetMeshCollection(x, y, z, width, height, rows, cols)
+function graphics.createSheetMeshCollection(position, width, height, rows, cols, uvX, uvY, uvWidth, uvHeight)
+	return renderCreateSheetMeshCollection(position, width, height, rows, cols, uvX or 0.0, uvY or 0.0, uvWidth or 1.0, uvHeight or 1.0)
 end
 
 --[[
-% createPlaneXYMeshCollection(x, y, z, width, height, rows, cols)
+% createPlaneXYMeshCollection(x, y, z, width, height, rows, cols, uvX, uvY, uvWidth, uvHeight)
 
 Used to create a mesh collection into memory consising of a single mesh. The mesh is divided in a number of rows and columns. Each cell is connected to the next.
 
-@ x (number) x position
-@ y (number) y position
-@ z (number) z position
+@ position (vector3) position
 @ width (number) width
 @ height (number) height
 @ rows (number) rows
 @ cols (number) cols
+@ uvX (number) x coord of texture coord 0 to 1
+@ uvY (number) y coord of texture coord 0 to 1
+@ uvWidth (number) width of texture coord 0 to 1
+@ uvHeight (number) eight of texture coord 0 to 1
 
 : (integer) ID of mesh collection, otherwise 0
 --]]
-function graphics.createPlaneXYMeshCollection(x, y, z, width, height, rows, cols)
-	return renderCreatePlaneXYMeshCollection(x, y, z, width, height, rows, cols)
+function graphics.createPlaneXYMeshCollection(position, width, height, rows, cols, uvX, uvY, uvWidth, uvHeight)
+	return renderCreatePlaneXYMeshCollection(position, width, height, rows, cols, uvX or 0.0, uvY or 0.0, uvWidth or 1.0, uvHeight or 1.0)
 end
 
 --[[
@@ -702,22 +706,43 @@ function graphics.disableBlend()
 end
 
 --[[
-% drawNinePatch(textureId, position, width, height, cornerPercentX, cornerPercentY)
+% drawNinePatch(position, width, height, cornerPercentX, cornerPercentY, uvX, uvY, uvWidth, uvHeight)
 
 Draws nine patch mesh
 
-@ textureId (integer) index offset
 @ position (vector3) position
 @ width (number) width
 @ height (number) height
 @ cornerPercentX (number) X axis corner percentage of width
 @ cornerPercentY (number) Y axis corner percentage of height
-@ filter (integer) filter to use
+@ uvX (number) x coord of texture coord 0 to 1
+@ uvY (number) y coord of texture coord 0 to 1
+@ uvWidth (number) width of texture coord 0 to 1
+@ uvHeight (number) eight of texture coord 0 to 1
 
 : (boolean) Whether or not the operation succeeded
 --]]
-function graphics.drawNinePatch(textureId, position, width, height, cornerPercentX, cornerPercentY, filter)
-	return renderDrawNinePatch(textureId, position, width, height, cornerPercentX, cornerPercentY, filter or graphics.Filter['Linear'])
+function graphics.drawNinePatch(position, width, height, cornerPercentX, cornerPercentY, uvX, uvY, uvWidth, uvHeight)
+	return renderDrawNinePatch( position, width, height, cornerPercentX, cornerPercentY, uvX or 0.0, uvY or 0.0, uvWidth or 1.0, uvHeight or 1.0)
+end
+
+--[[
+% drawQuad(position, width, height, uvX, uvY, uvWidth, uvHeight)
+
+Draws quad mesh
+
+@ position (vector3) position
+@ width (number) width
+@ height (number) height
+@ uvX (number) x coord of texture coord 0 to 1
+@ uvY (number) y coord of texture coord 0 to 1
+@ uvWidth (number) width of texture coord 0 to 1
+@ uvHeight (number) eight of texture coord 0 to 1
+
+: (boolean) Whether or not the operation succeeded
+--]]
+function graphics.drawQuad(position, width, height, uvX, uvY, uvWidth, uvHeight)
+	return renderDrawQuad(position, width, height, uvX or 0.0, uvY or 0.0, uvWidth or 1.0, uvHeight or 1.0)
 end
 
 --[[

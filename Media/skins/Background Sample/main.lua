@@ -3,7 +3,7 @@ require("global:Globals")
 testmenu = 0
 
 local backgroundTextureId = graphics.loadTexture("assets:images\\backgrounds\\background.png")
-local screenMeshId = graphics.createPlaneXYMeshCollection(0, 0, 0, renderGetWidth(), renderGetHeight(), 1, 1)
+local screenMeshId = graphics.createPlaneXYMeshCollection(vector3.new(0, 0, 0), renderGetWidth(), renderGetHeight(), 1, 1)
 graphics.bindMesh(screenMeshId, 0)
 
 local fontId = graphics.loadFont("assets:fonts\\bahnschrift-bold-37px.fnt")
