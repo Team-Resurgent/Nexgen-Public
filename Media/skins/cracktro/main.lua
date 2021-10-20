@@ -5,6 +5,23 @@ end
 
 require("global:Globals")
 
+meshCollectionId = graphics.createMeshCollection();
+meshId = graphics.createMesh(meshCollectionId)
+local radius = 25
+circleLines = 36
+local circleSteps = 360 / circleLines
+for i = 0, circleLines - 1 do
+	graphics.addMeshVertex(meshCollectionId, meshId, vector3.new(
+		(math.sin(math.rad(i * circleSteps)) * radius) + radius, 
+		(math.cos(math.rad(i * circleSteps)) * radius) + radius, 
+	0),	vector3.new(0.0, 0.0, 1.0), vector3.new(1.0, 1.0))
+	graphics.addMeshVertex(meshCollectionId, meshId, vector3.new(
+		(math.sin(math.rad((i + 1) * circleSteps)) * radius) + radius, 
+		(math.cos(math.rad((i + 1) * circleSteps)) * radius) + radius, 
+	0), vector3.new(0.0, 0.0, 1.0), vector3.new(1.0, 1.0))
+end
+graphics.bindMesh(meshCollectionId, meshId)
+
 local sheetTextureId = graphics.loadTexture("assets:images\\sprite-sheet.png")
 local sheetMeshId = graphics.createSheetMeshCollection(vector3.new(0, 0, 0), 64, 64, 16, 16)
 graphics.bindMesh(sheetMeshId, 0)
@@ -20,8 +37,10 @@ for driveNum = 1, #drives do
   print("drive = " .. drives[driveNum])
 end
 
-local soundIndex = sound.load("audio:music\\comic.wav")
+local soundIndex = sound.load("audio:music\\comic.ogg")
 sound.play(soundIndex)
+
+local pixelTextureId = graphics.loadTexture("assets:images\\pixel.png")
 
 local backgroundTextureId = graphics.loadTexture("assets:images\\backgrounds\\background.png")
 local screenMeshId = graphics.createPlaneXYMeshCollection(vector3.new(0, 0, 0), renderGetWidth(), renderGetHeight(), 1, 1)
@@ -109,6 +128,17 @@ function onRender(dt)
 		-- tell shader we want to use this transform
 		graphics.setModelMatrix(spriteTransform)
 		graphics.drawMesh(sheetFrame * 6, 6)
+
+		local lineTransform = scaleTransform
+		-- tell shader we want to use this transform
+		graphics.setModelMatrix(lineTransform)
+
+		
+		graphics.setDrawMode(graphics.DrawMode['Line'])
+		graphics.activateTexture(pixelTextureId)
+		graphics.activateMesh(meshCollectionId, meshId)
+		graphics.drawMesh(0, circleLines * 2)
+		graphics.setDrawMode(graphics.DrawMode['Triangle'])
 
 		graphics.endScene()
 		graphics.swapBuffers()

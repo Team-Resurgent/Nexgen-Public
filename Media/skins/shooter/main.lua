@@ -21,7 +21,7 @@ local musiccontrol = require ("scripts:musiccontrol")
 --************************************************************************************************
 
 local Background2DWallpapper = "On"
-local InGameMusic= "Off"
+local InGameMusic= "On"
 
 
 -------------------------------------------------------------------------------------------------- 
@@ -31,11 +31,10 @@ local InGameMusic= "Off"
 --************************************************************************************************ 
 
 if InGameMusic == "On" then
-IGMusic = sound.load("audio:music\\music.wav")
+IGMusic = sound.load("audio:music\\Cybernoid 2.ogg")
 end
 
-GunSound = sound.load("audio:sounds\\gun-sound.wav")
-
+GunSound = sound.load("audio:sounds\\gun-sound.ogg")
 
 --************************************************************************************************ 
 -- Define & Load Fonts.
@@ -179,11 +178,37 @@ end
 -------------------------------------------------------------------------------------------------- 
 
 
+leftVol = 0.0
+rightVol = 0.0
+
 --************************************************************************************************
 -- Render Code Code from this point Loops.
 --************************************************************************************************
 
 function onRender(dt)
+
+if (controller.isButtonDown(0, controller.Button['Y'])) and leftVol < 1.0 then
+    leftVol = leftVol + 0.01
+	print(leftVol)
+    end
+	
+if (controller.isButtonDown(0, controller.Button['White'])) and leftVol > 0.0 then
+    leftVol = leftVol - 0.01
+	print(leftVol)
+    end	
+	
+if (controller.isButtonDown(0, controller.Button['B'])) and rightVol < 1.0 then
+    rightVol = rightVol + 0.01
+	print(rightVol)
+    end	
+
+if (controller.isButtonDown(0, controller.Button['Black'])) and rightVol > 0.0 then
+    rightVol = rightVol - 0.01
+	print(rightVol)
+    end	
+		
+
+sound.setVolume(IGMusic, leftVol, rightVol)
 
 
 local aspectRatio = renderGetWidth() / renderGetHeight()

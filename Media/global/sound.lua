@@ -59,6 +59,37 @@ function sound.isPlaying(soundId)
 end
 
 --[[
+% getVolume(soundId)
+
+Used to get volume of sound.
+
+@ soundId (integer) ID of sound
+
+: (number) Sound volume percent 0 to 1 for left channel
+: (number) Sound volume percent 0 to 1 for right channel
+--]]
+
+function sound.getVolume(soundId)
+	return soundGetVolume(soundId)
+end
+
+--[[
+% setVolume(soundId, percent)
+
+Used to set volume of sound.
+
+@ soundId (integer) ID of sound
+@ percentLeft (number) sound volume percent 0 to 1 for left channel
+@ percentRight (number) sound volume percent 0 to 1 for right channel
+
+: (boolean) Whether or not the operation succeeded
+--]]
+
+function sound.setVolume(soundId, percentLeft, percentRight)
+	return soundSetVolume(soundId, percentLeft, percentRight or percentLeft)
+end
+
+--[[
 % setRepeat(soundId, count)
 
 Used to set repeat flag on sound (should be called before play).

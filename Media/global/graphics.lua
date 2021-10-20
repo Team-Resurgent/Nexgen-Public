@@ -207,19 +207,20 @@ function graphics.clearMesh(meshCollectionId, meshId)
 end
 
 --[[
-% addMeshData(meshCollectionId, meshId, vertices, indicies)
+% addMeshVertex(meshCollectionId, meshId, position, normal, texcoord)
 
-Used to add vertices and indices to a mesh in memory for a given mesh collection and mesh.
+Used to add a vertex in memory for a given mesh collection and mesh.
 
 @ meshCollectionId (integer) ID of mesh collection
 @ meshId (integer) ID of mesh
-@ vertices (vertexArray) collection of vertices
-@ [optional] indicies (indexArray) collection of indicies
+@ position (vector3) position vector
+@ normal (vector3) normal vector
+@ texcoord (vector2) texcoord vector
 
 : (boolean) Whether or not the operation succeeded
 --]]
-function graphics.addMeshData(meshCollectionId, meshId, vertices, indicies)
-	return renderAddMeshData(meshCollectionId, meshId, vertices, indicies)
+function graphics.addMeshVertex(meshCollectionId, meshId, position, normal, texcoord)
+	return renderAddMeshVertex(meshCollectionId, meshId, position, normal, texcoord)
 end
 
 --[[
@@ -900,13 +901,11 @@ Collection of Draw Mode Id values to number. Example:
 
 @ Triangle (string) = 0
 @ Line (string) = 1
-@ Point (string) = 2
 
 --]]
 graphics.DrawMode = {
 	['Triangle'] = 0,
-	['Line'] = 1,
-	['Point'] = 2
+	['Line'] = 1
 }
 
 return graphics
